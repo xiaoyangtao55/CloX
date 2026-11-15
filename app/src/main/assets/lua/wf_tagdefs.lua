@@ -460,10 +460,11 @@ def("ms", {
         return floor(s * 1000) / 1000
     end,
 })
--- abright tracks AOD state, which arrives on the settings push — the old
--- STATIC classification meant it never updated after load.
+-- abright is WatchMaker's "ambient screen is bright" flag. The face is never
+-- rendered in an ambient/dim mode any more, so it is always true; kept as a
+-- definition (not a constant) because faces read it every frame.
 def("settings", {
-    abright = function() return boolStr(not (WF.settings and WF.settings.aodEnabled)) end,
+    abright = function() return boolStr(true) end,
 })
 def("system", {
     avol   = function() return (WF.system or {}).volume or 0 end,

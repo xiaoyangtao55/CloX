@@ -145,7 +145,6 @@ object LiveDataHelper {
                 com.yzmm.clox.watchface.WatchfaceConfigPrefs.COLOR_FIXED -> cfg.colorValue(ctx, cfgPath)
                 else -> false
             })
-            put("aodEnabled",      prefs.getBoolean("watchface_aod_enabled", false))
             // Per-face behaviour toggles enforced Lua-side.
             put("allowSound",      cfg.allowSound(ctx, cfgPath))
             put("allowVibrate",    cfg.allowVibrate(ctx, cfgPath))

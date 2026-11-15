@@ -40,22 +40,6 @@ class SensorHelper(private val ctx: Context) : SensorEventListener {
 
     private val activeSensors = mutableSetOf<String>()
 
-    // AOD power-save: re-register everything at a slow hardware rate and gate
-    // emission to ~1 Hz per stream. The face renders at 1 FPS in AOD, so any
-    // faster delivery is pure CPU/HAL wakeup waste.
-    private var lowPower = false
-    private val lastEmitMs = mutableMapOf<String, Long>()
-
-    /** Slow all active sensors down for the AOD dim state (and back). Idempotent. */
-    fun setLowPower(low: Boolean) {
-        if (low == lowPower) return
-        lowPower = low
-        lastEmitMs.clear()
-        if (activeSensors.isEmpty() || suspended) return
-        sensorManager.unregisterListener(this)
-        activeSensors.forEach { registerSensor(it) }
-    }
-
     // ── Host pause/resume ─────────────────────────────────────────────────────
     // Face not visible (screen off, or covered by a launched app): the hardware
     // registrations otherwise stay live at face rates all night. Keep the
@@ -71,17 +55,7 @@ class SensorHelper(private val ctx: Context) : SensorEventListener {
     fun resume() {
         if (!suspended) return
         suspended = false
-        lastEmitMs.clear()
         activeSensors.forEach { registerSensor(it) }
-    }
-
-    /** Rate-gate a stream while in low power: at most one emit per second. */
-    private fun emitAllowed(name: String): Boolean {
-        if (!lowPower) return true
-        val now = android.os.SystemClock.elapsedRealtime()
-        if (now - (lastEmitMs[name] ?: 0L) < 950L) return false
-        lastEmitMs[name] = now
-        return true
     }
 
     fun setEnabled(sensorName: String, enable: Boolean, callback: (String, JSONObject) -> Unit) {
@@ -120,9 +94,8 @@ class SensorHelper(private val ctx: Context) : SensorEventListener {
     }
 
     private fun registerSensor(name: String) {
-        // ~16 Hz for live faces; 2 Hz requested in AOD (the emit gate handles
-        // hardware that ignores slow sampling periods).
-        val periodUs = if (lowPower) 500_000 else SensorManager.SENSOR_DELAY_UI
+        // ~16 Hz: fast enough for a live face, light enough to leave the screen on.
+        val periodUs = SensorManager.SENSOR_DELAY_UI
         for (type in typesFor(name)) {
             sensorManager.getDefaultSensor(type)?.let {
                 sensorManager.registerListener(this, it, periodUs)
@@ -145,7 +118,7 @@ class SensorHelper(private val ctx: Context) : SensorEventListener {
         val cb = onData ?: return
         when (event.sensor.type) {
             Sensor.TYPE_ACCELEROMETER -> {
-                if ("accelerometer" in activeSensors && emitAllowed("accelerometer")) {
+                if ("accelerometer" in activeSensors) {
                     cb("accelerometer", JSONObject().apply {
                         put("x", event.values[0].toDouble())
                         put("y", event.values[1].toDouble())
@@ -161,7 +134,7 @@ class SensorHelper(private val ctx: Context) : SensorEventListener {
                 }
                 // Gyro simulation: this device has no gyroscope, but a face
                 // enabled the gyroscope stream, so synthesize it here.
-                if (!hasGyro && "gyroscope" in activeSensors && emitAllowed("gyroscope")) {
+                if (!hasGyro && "gyroscope" in activeSensors) {
                     emitSimulatedGyro(cb, event.values[0], event.values[1], event.values[2])
                 }
             }
@@ -174,14 +147,14 @@ class SensorHelper(private val ctx: Context) : SensorEventListener {
                 }
             }
             Sensor.TYPE_PRESSURE -> {
-                if ("barometer" in activeSensors && emitAllowed("barometer")) {
+                if ("barometer" in activeSensors) {
                     cb("barometer", JSONObject().apply {
                         put("pressure", event.values[0].toDouble())
                     })
                 }
             }
             Sensor.TYPE_GYROSCOPE -> {
-                if ("gyroscope" in activeSensors && emitAllowed("gyroscope")) {
+                if ("gyroscope" in activeSensors) {
                     cb("gyroscope", JSONObject().apply {
                         put("x", event.values[0].toDouble())
                         put("y", event.values[1].toDouble())
@@ -193,7 +166,6 @@ class SensorHelper(private val ctx: Context) : SensorEventListener {
     }
 
     private fun emitCompass(cb: (String, JSONObject) -> Unit) {
-        if (!emitAllowed("compass")) return
         val rotMatrix = FloatArray(9)
         val orientation = FloatArray(3)
         if (SensorManager.getRotationMatrix(rotMatrix, null, gravity, geomagnetic)) {

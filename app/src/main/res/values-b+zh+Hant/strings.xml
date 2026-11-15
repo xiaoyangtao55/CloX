@@ -76,10 +76,6 @@
     <string name="pref_grid2d_3d_title">3D 景深效果</string>
     <string name="pref_grid2d_icon_size_title">圖示大小（dp，0 為自動）</string>
 
-    <!-- AOD overlay permission prompt -->
-    <string name="aod_overlay_perm_title">允許顯示在其他應用程式上層</string>
-    <string name="aod_overlay_perm_message">為了在其他應用程式中關閉螢幕時喚醒進入螢幕恆亮(AOD)，CloX 需要「顯示在其他應用程式上層」的權限。若無此權限，Android 會阻擋啟動器顯示於最上層。</string>
-    <string name="aod_overlay_perm_grant">開啟設定</string>
 
     <!-- Round overscroll + icon size (shared by all app-list styles) -->
     <string name="pref_icon_size_title">圖示大小（dp，0 為自動）</string>
@@ -307,7 +303,7 @@
     <string name="wfcfg_allow_tap">允許點擊動作</string>
     <string name="wfcfg_allow_tap_summary">讓點擊可以啟動應用程式與系統動作</string>
     <string name="wfcfg_fps_unlimited">無限制</string>
-    <string name="wfcfg_aod_hint">螢幕恆亮(AOD)狀態下一律限制為 1 FPS 以節省電力。</string>
+    <string name="wfcfg_fps_hint">閒置時錶面降為 1 FPS 以省電。</string>
     <string name="wfcfg_tab_color">色彩</string>
     <string name="wfcfg_color_default">錶面預設值</string>
     <string name="wfcfg_color_theme">跟隨啟動器主題</string>
@@ -459,29 +455,6 @@
     <string name="pref_wf_auto_interval_title">定時更換</string>
     <string name="pref_wf_auto_interval_summary">經過設定的時間間隔後隨機選擇一個錶面（於螢幕開啟時檢查）</string>
 
-    <!-- AOD settings -->
-    <string name="pref_aod_title">螢幕恆亮(AOD)</string>
-    <string name="pref_aod_summary">保持螢幕開啟，顯示錶面</string>
-    <string name="pref_aod_enabled_title">啟用螢幕恆亮(AOD)</string>
-    <string name="pref_aod_enabled_summary">保持螢幕開啟並顯示錶面</string>
-    <string name="pref_aod_when_charging_title">充電時一律開啟</string>
-    <string name="pref_aod_when_charging_summary">只要在充電就保持螢幕恆亮(AOD)啟用，即使已關閉螢幕恆亮(AOD)設定</string>
-    <string name="pref_aod_category_display">顯示</string>
-    <string name="pref_aod_category_behavior">行為</string>
-    <string name="pref_aod_timeout_title">閒置逾時</string>
-    <string name="pref_aod_timeout_summary">螢幕變暗與手勢鎖定前的等待秒數</string>
-    <string name="pref_aod_brightness_title">變暗後亮度</string>
-    <string name="pref_aod_brightness_summary">變暗時的螢幕亮度（1–255）</string>
-    <string name="pref_aod_reawaken_title">螢幕關閉時重新喚醒</string>
-    <string name="pref_aod_reawaken_summary">若其他應用程式關閉螢幕則重新開啟螢幕</string>
-    <string name="pref_aod_lock_gesture_title">閒置時鎖定手勢</string>
-    <string name="pref_aod_lock_gesture_summary">逾時後封鎖滑動手勢</string>
-    <string name="pref_aod_lock_gesture_delay_title">手勢鎖定延遲</string>
-    <string name="pref_aod_lock_gesture_delay_summary">逾時後鎖定手勢前的等待秒數</string>
-    <string name="pref_aod_shallow_sleep_title">淺層休眠</string>
-    <string name="pref_aod_shallow_sleep_summary">單次觸控會喚醒螢幕但不會解鎖手勢</string>
-    <string name="pref_aod_power_button_exit_title">電源鍵退出螢幕恆亮(AOD)</string>
-    <string name="pref_aod_power_button_exit_summary">按下電源鍵會開啟螢幕並退出螢幕恆亮(AOD)</string>
 
     <!-- Debug settings -->
     <string name="pref_debug_title">偵錯</string>
@@ -550,7 +523,6 @@
     <string name="tile_rotate">旋轉</string>
     <string name="tile_flashlight">手電筒</string>
     <string name="tile_location">位置</string>
-    <string name="tile_aod">螢幕恆亮</string>
     <string name="tile_airplane">飛航模式</string>
     <string name="tile_hotspot">熱點</string>
     <string name="tile_rtos_mode">RTOS 模式</string>

@@ -73,7 +73,6 @@ class GestureInterceptorLayout @JvmOverloads constructor(
      * Returns true when a double-tap action is actually configured. When armed,
      * two quick nearby taps fire the double-tap gesture (and the second tap is
      * never passed to Lua); when not armed, two quick taps are just two taps.
-     * (AOD lock arms double tap implicitly — it is the unlock gesture.)
      */
     var doubleTapArmed: (() -> Boolean)? = null
 
@@ -118,14 +117,9 @@ class GestureInterceptorLayout @JvmOverloads constructor(
     // animations and blur backdrop captures all composite against it, and the
     // idle 1 FPS throttle makes them stutter. Cheap enough to call per event.
     // Only needed while dynamic FPS is throttling; without it the face already
-    // renders at its configured rate. Suppressed in the AOD dim state so a
-    // touch on the (gesture-locked) dim face can't run 3 s of 60 FPS — a
-    // touch that legitimately wakes the watch undims first (AodManager.onTouch
-    // runs earlier in the activity's dispatch), flipping aodDimmed off before
-    // this fires.
+    // renders at its configured rate.
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        if (com.yzmm.clox.cocos.RenderPolicy.dynamicFps &&
-            !com.yzmm.clox.cocos.RenderPolicy.aodDimmed) {
+        if (com.yzmm.clox.cocos.RenderPolicy.dynamicFps) {
             dev.axmol.lib.AxmolRenderer.boostFrames(3f)
         }
         return super.dispatchTouchEvent(ev)
@@ -228,8 +222,7 @@ class GestureInterceptorLayout @JvmOverloads constructor(
             val overlayOpen = qsOverlayActive?.invoke() == true ||
                               notificationOverlayActive?.invoke() == true ||
                               widgetOverlayActive?.invoke() == true
-            val aodLocked = GestureLockManager.isAodLocked
-            if (!isDragging && !appListOpen && !overlayOpen && !aodLocked) {
+            if (!isDragging && !appListOpen && !overlayOpen) {
                 performHapticFeedback(
                     HapticFeedbackConstants.LONG_PRESS,
                     HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING or HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
@@ -318,8 +311,7 @@ class GestureInterceptorLayout @JvmOverloads constructor(
     private fun handleTap(ev: MotionEvent) {
         if (ev.actionMasked != MotionEvent.ACTION_UP) return
         val now = System.currentTimeMillis()
-        // AOD lock always arms double tap — it is the unlock gesture.
-        val armed = GestureLockManager.isAodLocked || doubleTapArmed?.invoke() != false
+        val armed = doubleTapArmed?.invoke() != false
         // A double tap needs proximity, not just timing: two taps on opposite
         // screen edges are two separate taps, no matter how quick.
         val dx = ev.x - lastTapX
@@ -329,14 +321,14 @@ class GestureInterceptorLayout @JvmOverloads constructor(
         if (isDoubleTap) {
             lastTapTime = 0L                     // a third tap starts a fresh sequence
             cancelPendingLuaTap()                // first tap must not reach the watchface
-            // Double tap only executes on the bare watchface (or AOD-locked, to unlock).
-            if (GestureLockManager.isAodLocked || watchfaceVisible()) {
+            // Double tap only executes on the bare watchface.
+            if (watchfaceVisible()) {
                 doubleTapListener?.invoke()
             }
             return
         }
         lastTapTime = now; lastTapX = ev.x; lastTapY = ev.y
-        if (GestureLockManager.isAodLocked || rtosActive) return
+        if (rtosActive) return
         // Taps belong to the watchface only when it is the front surface — a tap
         // on app-list / overlay empty space must never fall through to Lua.
         if (!watchfaceVisible()) return

@@ -76,10 +76,6 @@
     <string name="pref_grid2d_3d_title">Efeito de profundidade 3D</string>
     <string name="pref_grid2d_icon_size_title">Tamanho do ícone (dp, 0 = automático)</string>
 
-    <!-- AOD overlay permission prompt -->
-    <string name="aod_overlay_perm_title">Permitir exibição sobre outros aplicativos</string>
-    <string name="aod_overlay_perm_message">Para ativar a tela sempre ativa (AOD) quando a tela se apaga dentro de outro aplicativo, o CloX precisa da permissão “Exibir sobre outros aplicativos”. Sem ela, o Android impede que o launcher volte para o primeiro plano.</string>
-    <string name="aod_overlay_perm_grant">Abrir configurações</string>
 
     <!-- Round overscroll + icon size (shared by all app-list styles) -->
     <string name="pref_icon_size_title">Tamanho do ícone (dp, 0 = automático)</string>
@@ -305,7 +301,7 @@
     <string name="wfcfg_allow_tap">Permitir ações de toque</string>
     <string name="wfcfg_allow_tap_summary">Permitir que os toques abram aplicativos e ações do sistema</string>
     <string name="wfcfg_fps_unlimited">Ilimitado</string>
-    <string name="wfcfg_aod_hint">A tela sempre ativa (AOD) é sempre limitada a 1 FPS para economizar energia.</string>
+    <string name="wfcfg_fps_hint">Mostradores inativos caem para 1 FPS para economizar energia.</string>
     <string name="wfcfg_tab_color">Cor</string>
     <string name="wfcfg_color_default">Padrão do mostrador</string>
     <string name="wfcfg_color_theme">Seguir tema do launcher</string>
@@ -455,29 +451,6 @@
     <string name="pref_wf_auto_interval_title">Trocar por intervalo</string>
     <string name="pref_wf_auto_interval_summary">Escolhe um mostrador aleatório após o intervalo ter passado (verificado quando a tela liga)</string>
 
-    <!-- AOD settings -->
-    <string name="pref_aod_title">Tela sempre ativa</string>
-    <string name="pref_aod_summary">Mantém a tela ligada, mostra o mostrador</string>
-    <string name="pref_aod_enabled_title">Ativar AOD</string>
-    <string name="pref_aod_enabled_summary">Mantém a tela ligada e exibe o mostrador</string>
-    <string name="pref_aod_when_charging_title">Sempre ativa durante a carga</string>
-    <string name="pref_aod_when_charging_summary">Mantém a AOD ativa sempre que estiver carregando, mesmo se a AOD estiver desativada</string>
-    <string name="pref_aod_category_display">Exibição</string>
-    <string name="pref_aod_category_behavior">Comportamento</string>
-    <string name="pref_aod_timeout_title">Tempo limite de inatividade</string>
-    <string name="pref_aod_timeout_summary">Segundos antes de a tela escurecer e os gestos bloquearem</string>
-    <string name="pref_aod_brightness_title">Brilho reduzido</string>
-    <string name="pref_aod_brightness_summary">Brilho da tela quando reduzido (1–255)</string>
-    <string name="pref_aod_reawaken_title">Reativar ao desligar a tela</string>
-    <string name="pref_aod_reawaken_summary">Liga a tela novamente se outro aplicativo a desligar</string>
-    <string name="pref_aod_lock_gesture_title">Bloquear gestos quando ocioso</string>
-    <string name="pref_aod_lock_gesture_summary">Bloqueia gestos de deslize após o tempo limite</string>
-    <string name="pref_aod_lock_gesture_delay_title">Atraso do bloqueio de gestos</string>
-    <string name="pref_aod_lock_gesture_delay_summary">Segundos após o tempo limite antes de bloquear os gestos</string>
-    <string name="pref_aod_shallow_sleep_title">Sono leve</string>
-    <string name="pref_aod_shallow_sleep_summary">Um único toque liga a tela, mas não desbloqueia os gestos</string>
-    <string name="pref_aod_power_button_exit_title">Botão de energia sai da AOD</string>
-    <string name="pref_aod_power_button_exit_summary">Pressionar o botão de energia liga a tela e sai da AOD</string>
 
     <!-- Debug settings -->
     <string name="pref_debug_title">Depuração</string>
@@ -546,7 +519,6 @@
     <string name="tile_rotate">Girar</string>
     <string name="tile_flashlight">Lanterna</string>
     <string name="tile_location">Localização</string>
-    <string name="tile_aod">Sempre ativa</string>
     <string name="tile_airplane">Modo avião</string>
     <string name="tile_hotspot">Ponto de acesso</string>
     <string name="tile_rtos_mode">Modo RTOS</string>

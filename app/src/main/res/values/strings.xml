@@ -105,10 +105,6 @@
     <string name="pref_grid2d_3d_title">3D depth effect</string>
     <string name="pref_grid2d_icon_size_title">Icon size (dp, 0 = auto)</string>
 
-    <!-- AOD overlay permission prompt -->
-    <string name="aod_overlay_perm_title">Allow display over other apps</string>
-    <string name="aod_overlay_perm_message">To wake into AOD when the screen turns off inside another app, CloX needs the “Display over other apps” permission. Without it, Android blocks the launcher from coming to the front.</string>
-    <string name="aod_overlay_perm_grant">Open settings</string>
 
     <!-- Round overscroll + icon size (shared by all app-list styles) -->
     <string name="pref_icon_size_title">Icon size (dp, 0 = auto)</string>
@@ -484,7 +480,7 @@
     <string name="wfcfg_allow_tap_summary">Let taps launch apps and system actions</string>
     <string name="wfcfg_fps_value" translatable="false">%1$d FPS</string>
     <string name="wfcfg_fps_unlimited">Unlimited</string>
-    <string name="wfcfg_aod_hint">Ambient (AOD) is always capped at 1 FPS to save power.</string>
+    <string name="wfcfg_fps_hint">Idle faces drop to 1 FPS to save power.</string>
     <string name="wfcfg_tab_color">Color</string>
     <string name="wfcfg_color_default">Face default</string>
     <string name="wfcfg_color_theme">Follow launcher theme</string>
@@ -765,29 +761,6 @@
         <item>daily</item>
     </string-array>
 
-    <!-- AOD settings -->
-    <string name="pref_aod_title">Always-on Display</string>
-    <string name="pref_aod_summary">Keep screen on, show watchface</string>
-    <string name="pref_aod_enabled_title">Enable AOD</string>
-    <string name="pref_aod_enabled_summary">Keep the screen on and display the watchface</string>
-    <string name="pref_aod_when_charging_title">Always on while charging</string>
-    <string name="pref_aod_when_charging_summary">Keep AOD active whenever charging, even if AOD is off</string>
-    <string name="pref_aod_category_display">Display</string>
-    <string name="pref_aod_category_behavior">Behavior</string>
-    <string name="pref_aod_timeout_title">Idle timeout</string>
-    <string name="pref_aod_timeout_summary">Seconds before screen dims and gestures lock</string>
-    <string name="pref_aod_brightness_title">Dimmed brightness</string>
-    <string name="pref_aod_brightness_summary">Screen brightness when dimmed (1–255)</string>
-    <string name="pref_aod_reawaken_title">Re-wake on screen off</string>
-    <string name="pref_aod_reawaken_summary">Turn screen back on if another app turns it off</string>
-    <string name="pref_aod_lock_gesture_title">Lock gestures when idle</string>
-    <string name="pref_aod_lock_gesture_summary">Block swipe gestures after the timeout</string>
-    <string name="pref_aod_lock_gesture_delay_title">Gesture lock delay</string>
-    <string name="pref_aod_lock_gesture_delay_summary">Seconds after timeout before locking gestures</string>
-    <string name="pref_aod_shallow_sleep_title">Shallow sleep</string>
-    <string name="pref_aod_shallow_sleep_summary">Single touch wakes screen but does not unlock gestures</string>
-    <string name="pref_aod_power_button_exit_title">Power button exits AOD</string>
-    <string name="pref_aod_power_button_exit_summary">Pressing the power button turns screen on and exits AOD</string>
 
     <!-- Debug settings -->
     <string name="pref_debug_title">Debug</string>
@@ -878,7 +851,6 @@
     <string name="tile_rotate">Rotate</string>
     <string name="tile_flashlight">Flashlight</string>
     <string name="tile_location">Location</string>
-    <string name="tile_aod">Always On</string>
     <string name="tile_airplane">Airplane</string>
     <string name="tile_hotspot">Hotspot</string>
     <string name="tile_battery_saver">Battery Saver</string>

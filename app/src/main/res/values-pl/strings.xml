@@ -67,9 +67,6 @@
     <string name="pref_grid2d_3d_title">Efekt głębi 3D</string>
     <string name="pref_grid2d_icon_size_title">Rozmiar ikony (dp, 0 = auto)</string>
 
-    <string name="aod_overlay_perm_title">Zezwól na wyświetlanie nad innymi aplikacjami</string>
-    <string name="aod_overlay_perm_message">Aby uruchamiać AOD po wygaszeniu ekranu wewnątrz innej aplikacji, CloX potrzebuje uprawnienia „Wyświetlanie nad innymi aplikacjami”. Bez niego Android blokuje launcherowi możliwość wyświetlenia się na pierwszym planie.</string>
-    <string name="aod_overlay_perm_grant">Otwórz ustawienia</string>
 
     <string name="pref_icon_size_title">Rozmiar ikony (dp, 0 = auto)</string>
     <string name="pref_round_overscroll_title">Overscroll na okrągłym ekranie</string>
@@ -282,7 +279,7 @@
     <string name="wfcfg_allow_tap">Zezwól na akcje dotknięcia</string>
     <string name="wfcfg_allow_tap_summary">Pozwól dotknięciom uruchamiać aplikacje i akcje systemowe</string>
     <string name="wfcfg_fps_unlimited">Bez limitu</string>
-    <string name="wfcfg_aod_hint">Tryb ambient (AOD) jest zawsze ograniczony do 1 FPS, aby oszczędzać energię.</string>
+    <string name="wfcfg_fps_hint">Bezczynna tarcza spada do 1 FPS, aby oszczędzać energię.</string>
     <string name="wfcfg_tab_color">Kolor</string>
     <string name="wfcfg_color_default">Domyślny kolor tarczy</string>
     <string name="wfcfg_color_theme">Użyj motywu launchera</string>
@@ -422,28 +419,6 @@
     <string name="pref_wf_auto_interval_title">Zmieniaj co określony czas</string>
     <string name="pref_wf_auto_interval_summary">Wybierz losową tarczę zegarka po upływie interwału (sprawdzane przy włączeniu ekranu)</string>
 
-    <string name="pref_aod_title">Ekran zawsze włączony (AOD)</string>
-    <string name="pref_aod_summary">Utrzymuj ekran włączony, pokazuj tarczę zegarka</string>
-    <string name="pref_aod_enabled_title">Włącz AOD</string>
-    <string name="pref_aod_enabled_summary">Utrzymuj ekran włączony i wyświetlaj tarczę zegarka</string>
-    <string name="pref_aod_when_charging_title">Zawsze włączony podczas ładowania</string>
-    <string name="pref_aod_when_charging_summary">Utrzymuj AOD aktywny podczas ładowania, nawet jeśli AOD jest wyłączony</string>
-    <string name="pref_aod_category_display">Wyświetlacz</string>
-    <string name="pref_aod_category_behavior">Zachowanie</string>
-    <string name="pref_aod_timeout_title">Czas bezczynności</string>
-    <string name="pref_aod_timeout_summary">Liczba sekund przed przyciemnieniem ekranu i zablokowaniem gestów</string>
-    <string name="pref_aod_brightness_title">Jasność przy przyciemnieniu</string>
-    <string name="pref_aod_brightness_summary">Jasność ekranu w trybie przyciemnionym (1–255)</string>
-    <string name="pref_aod_reawaken_title">Ponowne wybudzenie po wyłączeniu ekranu</string>
-    <string name="pref_aod_reawaken_summary">Ponownie włącz ekran, jeśli wyłączy go inna aplikacja</string>
-    <string name="pref_aod_lock_gesture_title">Zablokuj gesty przy bezczynności</string>
-    <string name="pref_aod_lock_gesture_summary">Blokuj gesty przesunięcia po upływie czasu bezczynności</string>
-    <string name="pref_aod_lock_gesture_delay_title">Opóźnienie blokady gestów</string>
-    <string name="pref_aod_lock_gesture_delay_summary">Liczba sekund po upływie czasu przed zablokowaniem gestów</string>
-    <string name="pref_aod_shallow_sleep_title">Płytki sen</string>
-    <string name="pref_aod_shallow_sleep_summary">Pojedyncze dotknięcie wybudza ekran, ale nie odblokowuje gestów</string>
-    <string name="pref_aod_power_button_exit_title">Przycisk zasilania wychodzi z AOD</string>
-    <string name="pref_aod_power_button_exit_summary">Naciśnięcie przycisku zasilania włącza ekran i wychodzi z AOD</string>
 
     <string name="pref_debug_title">Debugowanie</string>
     <string name="pref_debug_summary">Obsługa błędów, kopie zapasowe, konserwacja</string>
@@ -506,7 +481,6 @@
     <string name="tile_rotate">Obrót</string>
     <string name="tile_flashlight">Latarka</string>
     <string name="tile_location">Lokalizacja</string>
-    <string name="tile_aod">Zawsze wł.</string>
     <string name="tile_airplane">Tryb samolotowy</string>
     <string name="tile_hotspot">Hotspot</string>
     <string name="tile_rtos_mode">Tryb RTOS</string>

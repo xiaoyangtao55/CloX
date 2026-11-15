@@ -31,7 +31,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import com.yzmm.clox.ui.theme.ScreenShape
 import com.yzmm.clox.ui.theme.ScreenShapeConfig
-import com.yzmm.clox.aod.AodManager
 import com.yzmm.clox.applist.AppContextMenu
 import com.yzmm.clox.applist.model.AppItem
 import com.yzmm.clox.qs.ScreenOffHelper
@@ -90,9 +89,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         // reset — used after importing a .watch file via ACTION_VIEW so the user lands on the
         // watch face page instead of whatever overlay/app-list was open before.
         const val EXTRA_OPEN_WATCHFACE_SELECTOR = "com.yzmm.clox.EXTRA_OPEN_WATCHFACE_SELECTOR"
-        // Set by AodManager on the synthetic HOME intent that re-wakes the screen. Without it,
-        // waking into AOD would be treated as a crown press and open the app list.
-        const val EXTRA_SKIP_CROWN_TOGGLE = "com.yzmm.clox.EXTRA_SKIP_CROWN_TOGGLE"
     }
 
     override fun showDialog(pTitle: String, pMessage: String) {}
@@ -144,10 +140,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
     private val snapshotHandler: Handler by lazy {
         Handler(HandlerThread("CloX-snapshot-capture").apply { start() }.looper)
     }
-    // Set when the launcher brings ITSELF to the front (AOD re-wake), so the next onResume can skip
-    // the return animation when the "no animation on self-close" option is on. Consumed in onResume.
-    private var selfForegroundPending = false
-
     // When enabled, collapse the launcher back to the bare watchface as the screen turns off, so
     // it's already showing the watchface the next time the screen comes on.
     private val screenOffReceiver = object : android.content.BroadcastReceiver() {
@@ -413,7 +405,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
 
     private lateinit var gestureHandler: GestureHandler
     private lateinit var buttonMappingHandler: ButtonMappingHandler
-    private lateinit var aodManager: AodManager
     private lateinit var gestureLockIcon: ImageView
 
     // RTOS mode — all logic in RtosActivityDelegate
@@ -485,6 +476,7 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         com.yzmm.clox.util.MonetBackport.applyToActivityIfAvailable(this)
         super.onCreate(savedInstanceState)
         hideSystemBars()
+        showOverKeyguard()
         setContentView(R.layout.activity_main)
 
         gestureRoot = findViewById(R.id.gestureRoot)
@@ -590,7 +582,7 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
                 overlayController.expandNotifications(screenW, screenH)
         }
         gestureHandler.onOpenAppList = {
-            if (!RtosManager.isActive && !aodManager.aodActive && !appListOpen &&
+            if (!RtosManager.isActive && !appListOpen &&
                 !overlayController.hasActiveOverlay() && !isFolderOpen()) openAppList()
         }
         gestureHandler.onShowVolumePanel = {
@@ -600,19 +592,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         gestureLockIcon = findViewById(R.id.gestureLockIcon)
         setupGestures()
         setupGestureLock()
-
-        aodManager = AodManager(
-            activity = this,
-            window = window,
-            onCollapseOverlays = {
-                // This collapse is always launcher-initiated (the AOD engine dims/sleeps), so drop
-                // straight to the watchface with no slide/collapse animation.
-                resetToWatchface()
-            },
-            onWillForeground = { selfForegroundPending = true }
-        )
-        aodManager.start()
-        gestureHandler.onScreenOffWhileAod = { aodManager.enterAodNow() }
 
         rtosDelegate = RtosActivityDelegate(
             activity             = this,
@@ -639,11 +618,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         lifecycleScope.launch {
             CloXNotificationListenerService.openPanelEvent.collect {
                 if (!overlayController.hasActiveOverlay()) {
-                    // Dismiss AOD state so the notification is visible
-                    if (aodManager.aodActive) {
-                        GestureLockManager.unlockAod()
-                        aodManager.onAodGestureUnlocked()
-                    }
                     overlayController.expandNotifications(screenW, screenH)
                     // onShown fires from commitDrag → updateBackEnabled() already called
                 }
@@ -702,9 +676,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
             handleCloseOverlaysIntent(intent)
             return
         }
-
-        // AOD screen re-wake uses a synthetic HOME intent; it must not toggle the app list.
-        if (intent.getBooleanExtra(EXTRA_SKIP_CROWN_TOGGLE, false)) return
 
         // If launch animation is still playing, reverse it instead of proceeding
         if (activeLaunchAnim != null) {
@@ -777,12 +748,34 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         if (ev.actionMasked == MotionEvent.ACTION_DOWN) {
-            aodManager.onTouch()
             AppContextMenu.dismissCurrent()
         }
         val result = super.dispatchTouchEvent(ev)
         if (RtosManager.isActive) rtosDelegate.onTouch(ev, gestureRoot.width, gestureRoot.height)
         return result
+    }
+
+    /**
+     * Draw the launcher (the watchface) above the system keyguard instead of letting the lock
+     * screen UI cover it — on a watch the face IS the lock screen. This does not unlock the
+     * device: the keyguard stays behind, and a secure one still has to be unlocked before
+     * anything protected becomes reachable.
+     *
+     * Kept from the old AOD manager, which owned the flag. This is deliberately all that is
+     * left of it: the screen still turns off normally, nothing re-wakes it, and no brightness
+     * override or gesture lock is applied.
+     */
+    private fun showOverKeyguard() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            setShowWhenLocked(true)
+            setTurnScreenOn(true)
+        } else {
+            @Suppress("DEPRECATION")
+            window.addFlags(
+                android.view.WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
+                android.view.WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+            )
+        }
     }
 
     override fun onResume() {
@@ -797,13 +790,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         // drive usage-stats closing-app detection on Back/Home returns even when we have no
         // remembered launched item.
         val cameFromBackground = wasStoppedSinceResume
-        // Did WE bring ourselves to the front (AOD re-wake) rather than the user gesturing back?
-        // If so, skip the return/reveal animation and land instantly — a self-initiated foreground
-        // should never replay the app's return animation.
-        val selfForeground = selfForegroundPending
-        selfForegroundPending = false
-        val skipSelfAnim = selfForeground
-        Log.d("CloX/Return", "onResume (reset wasStopped=false, cameFromBackground=$cameFromBackground selfForeground=$selfForeground skipSelfAnim=$skipSelfAnim)")
         wasStoppedSinceResume = false
         CocosManager.onResume()
         // Restart face videos stopped by WatchfaceOnHostPause (no-op if none / dim)
@@ -813,7 +799,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         // Restore periodic bridge data + sensors, and resync everything missed
         (supportFragmentManager.findFragmentByTag("home") as? com.yzmm.clox.home.HomeFragment)
             ?.onHostResume()
-        aodManager.onResume()
         // The resume window sync (SurfaceSyncGroup) waits for a fresh frame from
         // the GL SurfaceView; a 1 FPS-capped or idle-clamped face makes it hit
         // its 1000 ms timeout and stall the first traversal for a full second
@@ -867,7 +852,7 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
             val revealBounds = lastLaunchBounds
             lastLaunchedItem = null; lastLaunchBounds = null; lastLaunchIconView = null
             pendingGestureFollowOn = false
-            val playReveal = !skipSelfAnim && appListOpen &&
+            val playReveal = appListOpen &&
                 com.yzmm.clox.applist.AppListPrefs.gestureReturnEnabled(this)
             Log.d("CloX/Return", "onResume handoff+reveal playReveal=$playReveal bounds=$revealBounds")
             if (playReveal && revealBounds != null) {
@@ -963,13 +948,13 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
             // the list is NOT open there's no slot, so it plays toward screen centre — only
             // do that when the user has opted in via the resume-close-anim pref; otherwise
             // skip it so we land straight on the watchface.
-            val returnEnabled = !skipSelfAnim &&
+            val returnEnabled =
                 com.yzmm.clox.applist.AppListPrefs.returnAnimEnabled(this) &&
                 (appListOpen || com.yzmm.clox.applist.AppListPrefs.resumeCloseAnim(this))
             // Reveal the open app list over its background image (fade / circle from the icon).
             // "Only on gesture" restricts it to the swipe-home gesture (contract) return.
             val onlyOnGesture = com.yzmm.clox.applist.AppListPrefs.gestureReturnOnlyGesture(this)
-            val playReveal = !skipSelfAnim && appListOpen &&
+            val playReveal = appListOpen &&
                 com.yzmm.clox.applist.AppListPrefs.gestureReturnEnabled(this) &&
                 (!onlyOnGesture || pendingGestureFollowOn)
             // The reveal (fade / circle-in of the app list) must play AFTER the return animation
@@ -1851,7 +1836,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
             dev.axmol.lib.AxmolRenderer.kickFrame()
             CocosManager.onPause()
         }
-        aodManager.onPause()
         suppressSystemTransition()
     }
 
@@ -1876,7 +1860,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         }
         CocosManager.onDestroy(this)
         stateManager.detach()
-        aodManager.stop()
         GestureLockManager.onLockChanged = null
         runCatching { unregisterReceiver(screenOffReceiver) }
     }
@@ -1928,9 +1911,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         gestureRoot.doubleTapListener = {
             if (RtosManager.isActive) {
                 // RTOS active: tap feeds unlock handler only (already done in dispatchTouchEvent)
-            } else if (GestureLockManager.isAodLocked) {
-                GestureLockManager.unlockAod()
-                aodManager.onAodGestureUnlocked()
             } else {
                 gestureHandler.onDoubleTap()
             }
@@ -2437,7 +2417,7 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
      * the app list from the bare watchface.
      */
     private fun handleCrownPress(fromHomeKey: Boolean) {
-        if (RtosManager.isActive || aodManager.aodActive) return
+        if (RtosManager.isActive) return
         when {
             activeLaunchAnim != null             -> reverseLaunchAnimation()
             isLaunchAnimReversing()              -> {}

@@ -30,7 +30,6 @@ import com.yzmm.clox.settings.compose.AboutScreen
 import com.yzmm.clox.settings.compose.CreatorEasterEggOverlay
 import com.yzmm.clox.settings.compose.CreatorEasterEggState
 import com.yzmm.clox.settings.compose.AnimationScreen
-import com.yzmm.clox.settings.compose.AodScreen
 import com.yzmm.clox.settings.compose.AppListScreen
 import com.yzmm.clox.settings.compose.AppearanceScreen
 import com.yzmm.clox.settings.compose.DebugScreen
@@ -117,7 +116,6 @@ private fun SettingsApp(openTapActions: Boolean, initialFolderId: String?) {
                 composable(SettingsRoutes.ANIMATIONS) { AnimationScreen() }
                 composable(SettingsRoutes.WATCHFACE) { WatchfaceScreen() }
                 composable(SettingsRoutes.GESTURES) { GesturesScreen() }
-                composable(SettingsRoutes.AOD) { AodScreen() }
                 composable(SettingsRoutes.APPEARANCE) { AppearanceScreen() }
                 composable(SettingsRoutes.TAP_ACTIONS) { TapActionsScreen() }
                 composable(SettingsRoutes.WEATHER) { WeatherScreen() }

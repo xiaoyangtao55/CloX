@@ -32,7 +32,7 @@
 -- ── DATA CATEGORIES & FIELDS ─────────────────────────────────────────────────
 --   device:       apiLevel, language, deviceLabel, deviceModel, manufacturer,
 --                 productName, osType, appVersion, isRound, lastReboot
---   settings:     watchfacePath, zoom, xOffset, yOffset, fullscreen, frameRate, aodEnabled
+--   settings:     watchfacePath, zoom, xOffset, yOffset, fullscreen, frameRate
 --   system:       volume (0-100), brightness (0-255), darkMode, lowPowerMode
 --   location:     names[1..5], timezones[1..4]
 --   timezones:    tz1/tz2/tz3: {locationShort, locationLong, utcOffset, utcOffsetMinutes, dstActive}
@@ -93,7 +93,7 @@ WF = {
     settings = {
         watchfacePath = false,  -- false = not yet received; engine must gate loading on this
         alignMode = "vertical", sizeX = 1.0, sizeY = 1.0, xOffset = 0, yOffset = 0,
-        fullscreen = 0, frameRate = 60, aodEnabled = false,
+        fullscreen = 0, frameRate = 60,
         -- behaviour toggles (enforced Lua-side); mirror WatchfaceConfigPrefs defaults
         allowSound = false, allowVibrate = true, allowSensors = true,
         allowWeather = true, allowHealth = true, allowTap = true,

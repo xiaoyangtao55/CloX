@@ -76,10 +76,6 @@
     <string name="pref_grid2d_3d_title">3D 景深效果</string>
     <string name="pref_grid2d_icon_size_title">图标大小（dp，0 表示自动）</string>
 
-    <!-- AOD overlay permission prompt -->
-    <string name="aod_overlay_perm_title">允许在其他应用上层显示</string>
-    <string name="aod_overlay_perm_message">若要在其他应用内关闭屏幕时唤醒进入息屏显示(AOD)，CloX 需要“在其他应用上层显示”权限。否则，Android 会阻止启动器回到前台。</string>
-    <string name="aod_overlay_perm_grant">打开设置</string>
 
     <!-- Round overscroll + icon size (shared by all app-list styles) -->
     <string name="pref_icon_size_title">图标大小（dp，0 表示自动）</string>
@@ -306,7 +302,7 @@
     <string name="wfcfg_allow_tap">允许点击操作</string>
     <string name="wfcfg_allow_tap_summary">允许点击启动应用和系统操作</string>
     <string name="wfcfg_fps_unlimited">无限制</string>
-    <string name="wfcfg_aod_hint">息屏显示(AOD)始终限制为 1 FPS 以节省电量。</string>
+    <string name="wfcfg_fps_hint">空闲时表盘降为 1 FPS 以省电。</string>
     <string name="wfcfg_tab_color">颜色</string>
     <string name="wfcfg_color_default">表盘默认</string>
     <string name="wfcfg_color_theme">跟随启动器主题</string>
@@ -458,29 +454,6 @@
     <string name="pref_wf_auto_interval_title">定时更换</string>
     <string name="pref_wf_auto_interval_summary">间隔时间过后随机选择一个表盘（在亮屏时检查）</string>
 
-    <!-- AOD settings -->
-    <string name="pref_aod_title">息屏显示(AOD)</string>
-    <string name="pref_aod_summary">保持屏幕常亮，显示表盘</string>
-    <string name="pref_aod_enabled_title">启用息屏显示(AOD)</string>
-    <string name="pref_aod_enabled_summary">保持屏幕常亮并显示表盘</string>
-    <string name="pref_aod_when_charging_title">充电时始终开启</string>
-    <string name="pref_aod_when_charging_summary">只要在充电就保持息屏显示(AOD)开启，即使已关闭该功能</string>
-    <string name="pref_aod_category_display">显示</string>
-    <string name="pref_aod_category_behavior">行为</string>
-    <string name="pref_aod_timeout_title">空闲超时</string>
-    <string name="pref_aod_timeout_summary">屏幕变暗并锁定手势前的秒数</string>
-    <string name="pref_aod_brightness_title">变暗后的亮度</string>
-    <string name="pref_aod_brightness_summary">变暗后的屏幕亮度（1–255）</string>
-    <string name="pref_aod_reawaken_title">屏幕关闭时重新唤醒</string>
-    <string name="pref_aod_reawaken_summary">若其他应用关闭屏幕，则重新点亮屏幕</string>
-    <string name="pref_aod_lock_gesture_title">空闲时锁定手势</string>
-    <string name="pref_aod_lock_gesture_summary">超时后屏蔽滑动手势</string>
-    <string name="pref_aod_lock_gesture_delay_title">手势锁定延迟</string>
-    <string name="pref_aod_lock_gesture_delay_summary">超时后锁定手势前的秒数</string>
-    <string name="pref_aod_shallow_sleep_title">浅度休眠</string>
-    <string name="pref_aod_shallow_sleep_summary">单次触摸会唤醒屏幕，但不会解锁手势</string>
-    <string name="pref_aod_power_button_exit_title">电源键退出息屏显示(AOD)</string>
-    <string name="pref_aod_power_button_exit_summary">按下电源键会点亮屏幕并退出息屏显示(AOD)</string>
 
     <!-- Debug settings -->
     <string name="pref_debug_title">调试</string>
@@ -560,7 +533,6 @@
     <string name="tile_rotate">旋转</string>
     <string name="tile_flashlight">手电筒</string>
     <string name="tile_location">位置</string>
-    <string name="tile_aod">始终显示</string>
     <string name="tile_airplane">飞行模式</string>
     <string name="tile_hotspot">热点</string>
     <string name="tile_battery_saver">省电模式</string>

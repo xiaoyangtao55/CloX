@@ -617,7 +617,7 @@ class WatchfaceConfigActivity : AppCompatActivity() {
         page.addView(group, LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT))
 
         page.addView(TextView(this).apply {
-            text = getString(R.string.wfcfg_aod_hint)
+            text = getString(R.string.wfcfg_fps_hint)
             setTextColor(0xFF999999.toInt()); textSize = 12f
             setPadding(0, dp(10), 0, 0)
         })

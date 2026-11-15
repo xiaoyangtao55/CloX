@@ -15,7 +15,7 @@
 -- drives the boundaries instead. Async data (weather/health/sensors/battery/…)
 -- updates via bridge listeners the renderer registers per face; the scene
 -- enables only the data sources a face actually uses (§ feature toggles) and
--- caps FPS (normal max, 1 FPS in AOD).
+-- caps FPS at the per-face maximum while idle.
 --
 --   bridge.lua            — JNI ↔ Lua event bus
 --   watchface_bridge.lua  — structured WF.* live data + WatchfaceBridge actions
@@ -142,7 +142,7 @@ function WatchfaceScene:onEnter()
     -- context is guaranteed current. Bridge dispatches (which run on the GL thread
     -- via queueEvent, possibly before onSurfaceCreated or during context churn)
     -- only *request* a load; this pump performs it on the next frame. One boolean
-    -- check per frame when idle — negligible, and it ticks at the FPS cap (1 in AOD).
+    -- check per frame when idle — negligible, and it ticks at the idle FPS cap.
     self._loadTimer = cc.Director:getInstance():getScheduler()
         :scheduleScriptFunc(function() self:serviceLoad() end, 0, false)
 
@@ -218,15 +218,13 @@ function WatchfaceScene:applyStageTransform()
         self._W, self._H, tostring(mode), mx, my, base))
 end
 
--- Cap the render rate: 1 FPS in AOD, otherwise the per-face max (default 25,
--- unlockable to 60). The heavy per-frame Lua work is already gated by the
--- cadence scheduler; this bounds the GL draw / smooth-hand rate.
+-- Cap the render rate: the per-face max (default 25, unlockable to 60). The
+-- heavy per-frame Lua work is already gated by the cadence scheduler; this
+-- bounds the GL draw / smooth-hand rate.
 function WatchfaceScene:applyFrameRate()
     local s = WF.settings or {}
     local fps
-    if s.aodEnabled then
-        fps = 1
-    elseif s.maxFpsUnlimited then
+    if s.maxFpsUnlimited then
         fps = 60
     else
         fps = tonumber(s.maxFps) or tonumber(s.frameRate) or 25
@@ -449,7 +447,7 @@ end
 -- to the built-in default when the path is empty/false or the face won't load.
 -- Tracks _currentPath (what's shown; false = default) and _failedPath (a real
 -- path we already tried and bounced off) so repeated settings pushes — which
--- arrive on every zoom/AOD tick — don't reload or thrash the screen.
+-- arrive on every zoom/frame-rate tick — don't reload or thrash the screen.
 function WatchfaceScene:syncWatchface(path)
     if type(path) == "string" and path ~= "" then
         if path == self._currentPath or path == self._failedPath then
@@ -474,13 +472,10 @@ end
 
 function WatchfaceScene:wireBridge()
     -- Java pushes a full settings snapshot whenever the watchface path, zoom,
-    -- offsets, FPS or AOD state changes. Resolve the requested face, follow dim
-    -- mode, and re-apply the stage transform + frame-rate cap.
+    -- offsets or FPS changes. Resolve the requested face and re-apply the stage
+    -- transform + frame-rate cap.
     WatchfaceBridge.onChange("settings", function(data)
         if not data then return end
-        if data.aodEnabled ~= nil then
-            self._renderer:setDim(data.aodEnabled and true or false)
-        end
         -- accent override is a plain {ucolor} publish — live, no reload
         if self._renderer and self._renderer.setColorOverride then
             self._renderer:setColorOverride(
@@ -497,7 +492,7 @@ function WatchfaceScene:wireBridge()
         self._optimizeApplied = optimize
         -- Loading is deferred to the scheduler pump (GL-safe); the transform and
         -- frame-rate touch no GL resources, so apply them immediately for a
-        -- responsive zoom/AOD change.
+        -- responsive zoom change.
         self:requestLoad(data.watchfacePath)
         self:applyStageTransform()
         self:applyFrameRate()

@@ -8,7 +8,6 @@ object SettingsRoutes {
     const val ANIMATIONS = "animations"
     const val WATCHFACE = "watchface"
     const val GESTURES = "gestures"
-    const val AOD = "aod"
     const val APPEARANCE = "appearance"
     const val TAP_ACTIONS = "tap_actions"
     const val WEATHER = "weather"

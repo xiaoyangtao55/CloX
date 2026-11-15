@@ -98,7 +98,7 @@ class WatchfaceBridgeManager(
     // Keys that belong to the "settings" Lua category (watchface display settings)
     private val watchfaceSettingsKeys = setOf(
         "watchface_path", "watchface_zoom", "watchface_x_offset", "watchface_y_offset",
-        "watchface_fullscreen", "watchface_frame_rate", "watchface_aod_enabled"
+        "watchface_fullscreen", "watchface_frame_rate"
     )
 
     private val prefsListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
@@ -121,16 +121,12 @@ class WatchfaceBridgeManager(
                 com.yzmm.clox.watchface.WatchfaceConfigPrefs.isConfigKey(key) -> {
                 // Re-resolve the cached render policy: the effective dynamic-FPS
                 // value shifts on face switch, per-face override, use-default
-                // flip or a defaults-editor change; the AOD dim flag flips on
-                // every dim/undim — all of which land in this branch.
+                // flip or a defaults-editor change.
                 com.yzmm.clox.cocos.RenderPolicy.load(ctx)
                 // now-off mid-session: drop a stale app-list 1 FPS cap
                 if (!com.yzmm.clox.cocos.RenderPolicy.dynamicFps) {
                     dev.axmol.lib.AxmolRenderer.setForceLowFps(false)
                 }
-                // AOD dim ⇄ awake: slow active sensors to ~1 Hz / restore (no-op
-                // when unchanged or none active)
-                sensorHelper.setLowPower(com.yzmm.clox.cocos.RenderPolicy.aodDimmed)
                 sendToLua("settings", LiveDataHelper.watchfaceSettingsJson(ctx))
                 // A face switch (selector / import / random) travels this path.
                 // If the renderer is gone the push above was dropped silently —
@@ -264,7 +260,7 @@ class WatchfaceBridgeManager(
     fun start() {
         // Enforce the single-live-manager invariant the rest of this class
         // assumes. Activity recreation with the reused GL view (returning home,
-        // config changes, AOD wake) spins up a NEW manager while the OLD one may
+        // config changes, screen wake) spins up a NEW manager while the OLD one may
         // still be alive — the "create-before-destroy interleave" noted below.
         // If the old instance's stop() is ever skipped or delayed, its coroutine
         // scope is never cancelled and its 5s storage/alarm poll loop (plus every
@@ -620,14 +616,7 @@ class WatchfaceBridgeManager(
                 "setSensorEnabled" -> sensorHelper.setEnabled(
                     json.optString("sensor"),
                     json.optBoolean("enabled")
-                ) { sensor, data ->
-                    // In the AOD dim state a kick per sensor event would drive
-                    // the face at the sensor rate (16-33 Hz) all night despite
-                    // the 1 FPS AOD interval; queue the data un-kicked and let
-                    // the 1 FPS frame consume it.
-                    sendToLua("sensor_$sensor", data,
-                              kick = !com.yzmm.clox.cocos.RenderPolicy.aodDimmed)
-                }
+                ) { sensor, data -> sendToLua("sensor_$sensor", data) }
                 "reportLayerCount" -> {
                     com.yzmm.clox.watchface.WatchfaceStats.setLayerCount(
                         json.optInt("count", -1),
@@ -777,7 +766,7 @@ class WatchfaceBridgeManager(
             // wake the render thread out of its FPS-throttle wait so dispatches
             // (face switch, settings push) don't stall a frame interval — up to
             // 1s at the static-face cadence. kick=false lets high-rate data
-            // (AOD sensor streams) queue without forcing a frame per event.
+            // (sensor streams) queue without forcing a frame per event.
             if (kick) dev.axmol.lib.AxmolRenderer.kickFrame()
         } else {
             Log.w(TAG, "queueOnGL skipped — GL view not ready")

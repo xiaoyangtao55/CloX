@@ -76,10 +76,6 @@
     <string name="pref_grid2d_3d_title">3D奥行き効果</string>
     <string name="pref_grid2d_icon_size_title">アイコンサイズ (dp、0=自動)</string>
 
-    <!-- AOD overlay permission prompt -->
-    <string name="aod_overlay_perm_title">他のアプリの上に表示することを許可</string>
-    <string name="aod_overlay_perm_message">他のアプリを使用中に画面がオフになったときに常時表示(AOD)へ復帰するには、CloXに「他のアプリの上に表示」権限が必要です。この権限がないと、Androidはランチャーを前面に表示することをブロックします。</string>
-    <string name="aod_overlay_perm_grant">設定を開く</string>
 
     <!-- Round overscroll + icon size (shared by all app-list styles) -->
     <string name="pref_icon_size_title">アイコンサイズ (dp、0=自動)</string>
@@ -305,7 +301,7 @@
     <string name="wfcfg_allow_tap">タップ操作を許可</string>
     <string name="wfcfg_allow_tap_summary">タップでアプリやシステム操作を起動できるようにします</string>
     <string name="wfcfg_fps_unlimited">無制限</string>
-    <string name="wfcfg_aod_hint">常時表示(AOD)は省電力のため常に1FPSに制限されます。</string>
+    <string name="wfcfg_fps_hint">アイドル時は省電力のため1FPSに制限されます。</string>
     <string name="wfcfg_tab_color">カラー</string>
     <string name="wfcfg_color_default">フェイスの既定値</string>
     <string name="wfcfg_color_theme">ランチャーのテーマに従う</string>
@@ -455,29 +451,6 @@
     <string name="pref_wf_auto_interval_title">間隔で切り替え</string>
     <string name="pref_wf_auto_interval_summary">設定した間隔が経過するとランダムなウォッチフェイスを選択します(画面オン時に確認)</string>
 
-    <!-- AOD settings -->
-    <string name="pref_aod_title">常時表示(AOD)</string>
-    <string name="pref_aod_summary">画面をオンのままにしてウォッチフェイスを表示</string>
-    <string name="pref_aod_enabled_title">AODを有効にする</string>
-    <string name="pref_aod_enabled_summary">画面をオンのままにしてウォッチフェイスを表示します</string>
-    <string name="pref_aod_when_charging_title">充電中は常にオン</string>
-    <string name="pref_aod_when_charging_summary">AODがオフでも、充電中は常にAODを有効にします</string>
-    <string name="pref_aod_category_display">表示</string>
-    <string name="pref_aod_category_behavior">動作</string>
-    <string name="pref_aod_timeout_title">アイドルタイムアウト</string>
-    <string name="pref_aod_timeout_summary">画面が暗くなりジェスチャーがロックされるまでの秒数</string>
-    <string name="pref_aod_brightness_title">減光時の輝度</string>
-    <string name="pref_aod_brightness_summary">減光時の画面輝度(1〜255)</string>
-    <string name="pref_aod_reawaken_title">画面オフ時に再点灯</string>
-    <string name="pref_aod_reawaken_summary">他のアプリが画面をオフにした場合に画面を再度オンにします</string>
-    <string name="pref_aod_lock_gesture_title">アイドル時にジェスチャーをロック</string>
-    <string name="pref_aod_lock_gesture_summary">タイムアウト後にスワイプジェスチャーをブロックします</string>
-    <string name="pref_aod_lock_gesture_delay_title">ジェスチャーロックの遅延</string>
-    <string name="pref_aod_lock_gesture_delay_summary">タイムアウト後、ジェスチャーをロックするまでの秒数</string>
-    <string name="pref_aod_shallow_sleep_title">浅いスリープ</string>
-    <string name="pref_aod_shallow_sleep_summary">1回のタッチで画面は点灯しますが、ジェスチャーのロックは解除されません</string>
-    <string name="pref_aod_power_button_exit_title">電源ボタンでAODを終了</string>
-    <string name="pref_aod_power_button_exit_summary">電源ボタンを押すと画面がオンになりAODを終了します</string>
 
     <!-- Debug settings -->
     <string name="pref_debug_title">デバッグ</string>
@@ -546,7 +519,6 @@
     <string name="tile_rotate">回転</string>
     <string name="tile_flashlight">懐中電灯</string>
     <string name="tile_location">位置情報</string>
-    <string name="tile_aod">常時表示</string>
     <string name="tile_airplane">機内モード</string>
     <string name="tile_hotspot">テザリング</string>
     <string name="tile_rtos_mode">RTOSモード</string>

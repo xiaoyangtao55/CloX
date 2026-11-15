@@ -40,9 +40,6 @@ sealed class TileState {
 
     data class LocationState(val enabled: Boolean) : TileState()
 
-    // Placeholder — no backend yet
-    data class AodState(val enabled: Boolean) : TileState()
-
     data class AirplaneState(val enabled: Boolean) : TileState()
 
     data class HotspotState(val enabled: Boolean) : TileState()

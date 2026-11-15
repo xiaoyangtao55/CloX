@@ -47,12 +47,6 @@ fun RootSettingsScreen(
         ) { onOpen(SettingsRoutes.GESTURES) }
 
         SettingsButton(
-            title = res(R.string.pref_aod_title),
-            summary = res(R.string.pref_aod_summary),
-            icon = { NavIcon(R.drawable.baseline_aod_24) },
-        ) { onOpen(SettingsRoutes.AOD) }
-
-        SettingsButton(
             title = res(R.string.pref_appearance_title),
             summary = res(R.string.pref_appearance_summary),
             icon = { NavIcon(R.drawable.baseline_palette_24) },
