@@ -89,6 +89,9 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         // reset — used after importing a .watch file via ACTION_VIEW so the user lands on the
         // watch face page instead of whatever overlay/app-list was open before.
         const val EXTRA_OPEN_WATCHFACE_SELECTOR = "com.yzmm.clox.EXTRA_OPEN_WATCHFACE_SELECTOR"
+
+        /** Draw the launcher over the system keyguard (Settings > Appearance > Lock screen). */
+        const val PREF_SHOW_OVER_KEYGUARD = "show_over_keyguard"
     }
 
     override fun showDialog(pTitle: String, pMessage: String) {}
@@ -476,7 +479,7 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         com.yzmm.clox.util.MonetBackport.applyToActivityIfAvailable(this)
         super.onCreate(savedInstanceState)
         hideSystemBars()
-        showOverKeyguard()
+        applyKeyguardOverlay()
         setContentView(R.layout.activity_main)
 
         gestureRoot = findViewById(R.id.gestureRoot)
@@ -759,27 +762,58 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
      * Draw the launcher (the watchface) above the system keyguard instead of letting the lock
      * screen UI cover it — on a watch the face IS the lock screen. This does not unlock the
      * device: the keyguard stays behind, and a secure one still has to be unlocked before
-     * anything protected becomes reachable.
+     * anything protected becomes reachable. Swiping up over the face asks the system for that
+     * unlock (see [requestKeyguardUnlock]).
      *
-     * Kept from the old AOD manager, which owned the flag. This is deliberately all that is
-     * left of it: the screen still turns off normally, nothing re-wakes it, and no brightness
-     * override or gesture lock is applied.
+     * Toggleable in Settings > Appearance > Lock screen. Applied on every resume so the switch
+     * takes effect as soon as the user comes back from Settings.
      */
-    private fun showOverKeyguard() {
+    private fun applyKeyguardOverlay() {
+        val show = PreferenceManager.getDefaultSharedPreferences(this)
+            .getBoolean(PREF_SHOW_OVER_KEYGUARD, true)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-            setShowWhenLocked(true)
-            setTurnScreenOn(true)
+            setShowWhenLocked(show)
+            setTurnScreenOn(show)
         } else {
             @Suppress("DEPRECATION")
-            window.addFlags(
+            if (show) window.addFlags(
+                android.view.WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
+                android.view.WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+            ) else window.clearFlags(
+                @Suppress("DEPRECATION")
                 android.view.WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
                 android.view.WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
             )
         }
     }
 
+    /**
+     * True when an up-swipe should be interpreted as "unlock": the overlay is on, the keyguard
+     * is still up (the face is drawn over it, so the system never got a chance to show its own
+     * swipe-up affordance), and no launcher layer is open to consume the gesture.
+     */
+    private fun keyguardSwipeArmed(): Boolean {
+        if (RtosManager.isActive || appListOpen || overlayController.hasActiveOverlay()) return false
+        if (!PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean(PREF_SHOW_OVER_KEYGUARD, true)) return false
+        val km = getSystemService(KEYGUARD_SERVICE) as android.app.KeyguardManager
+        return km.isKeyguardLocked
+    }
+
+    /**
+     * Ask the system to dismiss the keyguard. With a secure lock screen this raises the system
+     * PIN/pattern/password UI on top of the launcher; with a swipe-only keyguard it just
+     * dismisses it. The launcher never validates credentials itself.
+     */
+    private fun requestKeyguardUnlock() {
+        val km = getSystemService(KEYGUARD_SERVICE) as android.app.KeyguardManager
+        if (!km.isKeyguardLocked) return
+        km.requestDismissKeyguard(this, null)
+    }
+
     override fun onResume() {
         super.onResume()
+        applyKeyguardOverlay()
         // Round/square override changed in Settings: rebuild so View resources
         // and the composables pick up the new configuration.
         if (ScreenShape.read(this) != appliedScreenShape) {
@@ -1923,7 +1957,9 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         }
 
         gestureRoot.onSwipeStart = { direction, _, _ ->
-            if (RtosManager.isFullMode()) {
+            if (direction == SwipeDirection.UP && keyguardSwipeArmed()) {
+                // Unlock swipe: no panel drag — committed in onSwipeEnd.
+            } else if (RtosManager.isFullMode()) {
                 // Mode 2: DOWN → RTOS QS, RIGHT → RTOS notif, LEFT → app list, UP → blocked
                 when {
                     overlayController.hasActiveOverlay() && !overlayController.isDragging ->
@@ -2018,6 +2054,13 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         // container onClick, which still fires because a tap never triggers gesture interception).
         // The user must tap to dismiss the folder first; only then can a swipe slide the app list.
         if (isFolderOpen()) return
+
+        // Lock-screen overlay: an up-swipe over the face is the system's unlock gesture. Nothing
+        // else claims UP on the bare watchface, so this cannot shadow an existing action.
+        if (direction == SwipeDirection.UP && keyguardSwipeArmed()) {
+            if (-dy > screenH * 0.15f || -vy > 400f) requestKeyguardUnlock()
+            return
+        }
 
         // Priority 1: commit or cancel an in-progress collapse drag
         if (overlayController.isCollapsing) {

@@ -984,4 +984,9 @@
     <string name="pref_rtos_summary">런처를 RTOS 블루투스 시계로 위장합니다</string>
     <string name="pref_about_title">정보 &amp; 업데이트</string>
     <string name="pref_about_summary">버전, 개발자, Onyx 프로젝트, 업데이트 확인</string>
+    <!-- Lock screen -->
+    <string name="appearance_section_lockscreen">잠금 화면</string>
+    <string name="lockscreen_show_title">잠금 화면 위에 워치 페이스 표시</string>
+    <string name="lockscreen_show_summary">잠금 화면 UI 대신 시스템 잠금 화면 위에 페이스를 그립니다</string>
+    <string name="lockscreen_swipe_note">페이스에서 위로 밀면 시스템 잠금 해제 화면이 열립니다. CloX는 PIN을 직접 묻지 않습니다.</string>
 </resources>

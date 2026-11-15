@@ -997,4 +997,9 @@
     <string name="pref_rtos_summary">Disfarçar o launcher como um relógio Bluetooth RTOS</string>
     <string name="pref_about_title">Acerca de &amp; Atualização</string>
     <string name="pref_about_summary">Versão, programadores, projeto Onyx, verificador de atualizações</string>
+    <!-- Lock screen -->
+    <string name="appearance_section_lockscreen">Ecrã de bloqueio</string>
+    <string name="lockscreen_show_title">Mostrar o mostrador sobre o ecrã de bloqueio</string>
+    <string name="lockscreen_show_summary">Desenha o mostrador por cima do ecrã de bloqueio do sistema em vez da interface de bloqueio</string>
+    <string name="lockscreen_swipe_note">Deslize para cima no mostrador para abrir o ecrã de desbloqueio do sistema. O CloX nunca pede o seu PIN.</string>
 </resources>

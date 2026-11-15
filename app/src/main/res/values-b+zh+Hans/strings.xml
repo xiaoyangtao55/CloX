@@ -1033,4 +1033,9 @@
     <string name="notif_perm_one_tap_hint">检测到 Shizuku/root，点击上方可直接授权。</string>
     <string name="notif_perm_one_tap_ok">已授予通知使用权</string>
     <string name="notif_perm_one_tap_failed">授权失败，正在打开设置</string>
+    <!-- Lock screen -->
+    <string name="appearance_section_lockscreen">锁屏</string>
+    <string name="lockscreen_show_title">在锁屏上显示表盘</string>
+    <string name="lockscreen_show_summary">表盘画在系统锁屏之上，而不是让锁屏界面盖住它</string>
+    <string name="lockscreen_swipe_note">在表盘上上滑即可调出系统解锁界面；CloX 自己不校验密码。</string>
 </resources>

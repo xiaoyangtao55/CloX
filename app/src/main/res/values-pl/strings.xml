@@ -899,4 +899,9 @@
     <string name="pref_rtos_summary">Zamaskuj launcher jako zegarek Bluetooth RTOS</string>
     <string name="pref_about_title">Informacje &amp; aktualizacje</string>
     <string name="pref_about_summary">Wersja, twórcy, projekt Onyx, sprawdzanie aktualizacji</string>
+    <!-- Lock screen -->
+    <string name="appearance_section_lockscreen">Ekran blokady</string>
+    <string name="lockscreen_show_title">Pokaż tarczę na ekranie blokady</string>
+    <string name="lockscreen_show_summary">Rysuje tarczę nad systemowym ekranem blokady zamiast interfejsu blokady</string>
+    <string name="lockscreen_swipe_note">Przesuń palcem w górę na tarczy, aby otworzyć systemowy ekran odblokowania. CloX nigdy nie pyta o PIN.</string>
 </resources>

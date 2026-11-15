@@ -1491,4 +1491,9 @@
     <string name="notif_perm_one_tap_hint">Shizuku/root detected — tap the row above to grant access directly.</string>
     <string name="notif_perm_one_tap_ok">Notification access granted</string>
     <string name="notif_perm_one_tap_failed">Grant failed — opening settings</string>
+    <!-- Lock screen -->
+    <string name="appearance_section_lockscreen">Lock screen</string>
+    <string name="lockscreen_show_title">Show the watch face over the lock screen</string>
+    <string name="lockscreen_show_summary">Draw the face on top of the system lock screen instead of the lock UI</string>
+    <string name="lockscreen_swipe_note">Swipe up on the face to open the system unlock screen. CloX never asks for your PIN itself.</string>
 </resources>

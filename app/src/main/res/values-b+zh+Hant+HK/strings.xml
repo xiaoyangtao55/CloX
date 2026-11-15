@@ -1002,4 +1002,9 @@
     <string name="pref_rtos_summary">將啟動器偽裝成RTOS藍牙手錶</string>
     <string name="pref_about_title">關於 &amp; 更新</string>
     <string name="pref_about_summary">版本、開發人員、Onyx project、更新檢查器</string>
+    <!-- Lock screen -->
+    <string name="appearance_section_lockscreen">鎖定畫面</string>
+    <string name="lockscreen_show_title">在鎖定畫面上顯示錶面</string>
+    <string name="lockscreen_show_summary">錶面繪於系統鎖定畫面之上，而非被鎖定介面遮蓋</string>
+    <string name="lockscreen_swipe_note">在錶面向上滑即可叫出系統解鎖畫面；CloX 不會自行驗證密碼。</string>
 </resources>

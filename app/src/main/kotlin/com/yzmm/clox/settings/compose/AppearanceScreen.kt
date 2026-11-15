@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.preference.PreferenceManager
+import com.yzmm.clox.MainActivity
 import com.yzmm.clox.R
 import com.yzmm.clox.ui.theme.ScreenShape
 import com.yzmm.clox.util.safeStartActivity
@@ -31,6 +32,9 @@ fun AppearanceScreen() {
     var blurMode by remember { mutableStateOf(prefs.getString("blur_mode", "BLURVIEW") ?: "BLURVIEW") }
     var blurRadius by remember { mutableStateOf(prefs.getInt("blur_radius", 15).coerceIn(2, 25)) }
     var screenShape by remember { mutableStateOf(ScreenShape.read(context)) }
+    var overKeyguard by remember {
+        mutableStateOf(prefs.getBoolean(MainActivity.PREF_SHOW_OVER_KEYGUARD, true))
+    }
 
     var showDarkPicker by remember { mutableStateOf(false) }
     var showDpiDialog by remember { mutableStateOf(false) }
@@ -90,6 +94,18 @@ fun AppearanceScreen() {
                 prefs.edit().putInt("blur_radius", it).apply()
             },
         )
+
+        SectionHeader(res(R.string.appearance_section_lockscreen))
+        SettingsSwitch(
+            title = res(R.string.lockscreen_show_title),
+            summary = res(R.string.lockscreen_show_summary),
+            checked = overKeyguard,
+            onCheckedChange = {
+                overKeyguard = it
+                prefs.edit().putBoolean(MainActivity.PREF_SHOW_OVER_KEYGUARD, it).apply()
+            },
+        )
+        SettingsNote(res(R.string.lockscreen_swipe_note))
     }
 
     if (showDarkPicker) {
