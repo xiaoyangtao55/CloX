@@ -5,16 +5,21 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.preference.PreferenceManager
 import com.yzmm.clox.MainActivity
 import com.yzmm.clox.R
+import com.yzmm.clox.lockscreen.WakeToWatchface
 import com.yzmm.clox.ui.theme.ScreenShape
 import com.yzmm.clox.util.safeStartActivity
 
@@ -34,6 +39,21 @@ fun AppearanceScreen() {
     var screenShape by remember { mutableStateOf(ScreenShape.read(context)) }
     var overKeyguard by remember {
         mutableStateOf(prefs.getBoolean(MainActivity.PREF_SHOW_OVER_KEYGUARD, true))
+    }
+    var wakeFace by remember { mutableStateOf(WakeToWatchface.enabled(context)) }
+    var canDrawOverlays by remember { mutableStateOf(WakeToWatchface.hasOverlayPermission(context)) }
+
+    // The overlay grant happens in the system settings app, so re-read it when we come back —
+    // otherwise the "grant the permission" hint stays on screen after the user already granted it.
+    val lifecycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                canDrawOverlays = WakeToWatchface.hasOverlayPermission(context)
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 
     var showDarkPicker by remember { mutableStateOf(false) }
@@ -105,6 +125,23 @@ fun AppearanceScreen() {
                 prefs.edit().putBoolean(MainActivity.PREF_SHOW_OVER_KEYGUARD, it).apply()
             },
         )
+        SettingsSwitch(
+            title = res(R.string.lockscreen_wake_face_title),
+            summary = if (wakeFace && !canDrawOverlays) {
+                res(R.string.lockscreen_wake_face_perm)
+            } else {
+                res(R.string.lockscreen_wake_face_summary)
+            },
+            checked = wakeFace,
+            onCheckedChange = {
+                wakeFace = it
+                prefs.edit().putBoolean(WakeToWatchface.PREF, it).apply()
+                if (it && !canDrawOverlays) WakeToWatchface.requestOverlayPermission(context)
+            },
+        )
+        if (wakeFace && !canDrawOverlays) {
+            SettingsNote(res(R.string.lockscreen_wake_face_perm_note))
+        }
         SettingsNote(res(R.string.lockscreen_swipe_note))
     }
 

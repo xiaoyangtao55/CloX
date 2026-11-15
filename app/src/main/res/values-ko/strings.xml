@@ -989,4 +989,9 @@
     <string name="lockscreen_show_title">잠금 화면 위에 워치 페이스 표시</string>
     <string name="lockscreen_show_summary">잠금 화면 UI 대신 시스템 잠금 화면 위에 페이스를 그립니다</string>
     <string name="lockscreen_swipe_note">페이스에서 위로 밀면 시스템 잠금 해제 화면이 열립니다. CloX는 PIN을 직접 묻지 않습니다.</string>
+    <!-- Lock screen: wake straight to the watch face -->
+    <string name="lockscreen_wake_face_title">화면 켤 때 워치 페이스 표시</string>
+    <string name="lockscreen_wake_face_summary">화면을 다시 켜면 잠금 화면 대신 페이스가 표시됩니다</string>
+    <string name="lockscreen_wake_face_perm">「다른 앱 위에 표시」권한이 필요합니다. 탭하여 허용</string>
+    <string name="lockscreen_wake_face_perm_note">이 권한이 없으면 화면이 꺼질 때 시스템이 런처의 전면 전환을 차단합니다.</string>
 </resources>

@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import com.yzmm.clox.crash.CrashHandler
+import com.yzmm.clox.lockscreen.WakeToWatchface
 import com.yzmm.clox.qs.privilege.ShizukuOperations
 import com.yzmm.clox.util.MonetBackport
 import com.google.android.material.color.DynamicColors
@@ -19,6 +20,10 @@ class CloXApp : Application() {
         MonetBackport.applyToActivitiesIfAvailable(this)
         CrashHandler.install(this)
         initShizuku()
+        // Screen-off → put the launcher back on top, so waking up lands on the watch face
+        // instead of the system lock screen. Registered here (not in MainActivity) so it keeps
+        // working while the launcher is behind another app.
+        WakeToWatchface.register(this)
     }
 
     /**

@@ -1002,4 +1002,9 @@
     <string name="lockscreen_show_title">Mostrar o mostrador sobre o ecrã de bloqueio</string>
     <string name="lockscreen_show_summary">Desenha o mostrador por cima do ecrã de bloqueio do sistema em vez da interface de bloqueio</string>
     <string name="lockscreen_swipe_note">Deslize para cima no mostrador para abrir o ecrã de desbloqueio do sistema. O CloX nunca pede o seu PIN.</string>
+    <!-- Lock screen: wake straight to the watch face -->
+    <string name="lockscreen_wake_face_title">Mostrador ao acender o ecrã</string>
+    <string name="lockscreen_wake_face_summary">Ao voltar a acender o ecrã, mostra o mostrador em vez do ecrã de bloqueio</string>
+    <string name="lockscreen_wake_face_perm">Requer «mostrar sobre outras aplicações» — toque para conceder</string>
+    <string name="lockscreen_wake_face_perm_note">Sem esta permissão o sistema impede o lançador de passar para a frente quando o ecrã se apaga.</string>
 </resources>

@@ -66,6 +66,10 @@
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <!-- Short wake locks held while a notification panel entrance plays / the screen is woken. -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- Wake on the watch face: the launcher is raised while the display is off (see
+         WakeToWatchface). Starting an activity from the background needs this grant; no overlay
+         window is ever created, the permission is only the background-activity-start exemption. -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <!-- Global QS overlay foreground service (draw-over-apps QS + custom status bar strip) -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />

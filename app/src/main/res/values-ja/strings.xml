@@ -989,4 +989,9 @@
     <string name="lockscreen_show_title">ロック画面に文字盤を表示</string>
     <string name="lockscreen_show_summary">ロック画面のUIではなく、システムのロック画面の上に文字盤を描画します</string>
     <string name="lockscreen_swipe_note">文字盤を上にスワイプするとシステムのロック解除画面が開きます。CloX が暗証番号を尋ねることはありません。</string>
+    <!-- Lock screen: wake straight to the watch face -->
+    <string name="lockscreen_wake_face_title">点灯時に文字盤を表示</string>
+    <string name="lockscreen_wake_face_summary">画面を再び点灯したとき、ロック画面ではなく文字盤を表示します</string>
+    <string name="lockscreen_wake_face_perm">「他のアプリの上に重ねて表示」が必要です。タップして許可</string>
+    <string name="lockscreen_wake_face_perm_note">この権限がないと、画面消灯時にシステムがランチャーの前面移動をブロックします。</string>
 </resources>

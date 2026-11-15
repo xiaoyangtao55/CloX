@@ -1496,4 +1496,9 @@
     <string name="lockscreen_show_title">Show the watch face over the lock screen</string>
     <string name="lockscreen_show_summary">Draw the face on top of the system lock screen instead of the lock UI</string>
     <string name="lockscreen_swipe_note">Swipe up on the face to open the system unlock screen. CloX never asks for your PIN itself.</string>
+    <!-- Lock screen: wake straight to the watch face -->
+    <string name="lockscreen_wake_face_title">Wake on the watch face</string>
+    <string name="lockscreen_wake_face_summary">Turning the screen back on shows the face instead of the lock screen</string>
+    <string name="lockscreen_wake_face_perm">Needs “display over other apps” — tap to grant</string>
+    <string name="lockscreen_wake_face_perm_note">Without that permission the system blocks the launcher from coming forward as the screen turns off.</string>
 </resources>
