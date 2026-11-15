@@ -43,6 +43,10 @@ object WakeToWatchface {
             if (intent?.action != Intent.ACTION_SCREEN_OFF) return
             val context = ctx?.applicationContext ?: return
             if (!enabled(context)) return
+            // Raising the launcher while the face is *not* drawn over the keyguard would swap
+            // the unlock landing spot for no visible gain: the user would still see the system
+            // lock screen on wake-up. Follow the overlay switch.
+            if (!showOverKeyguard(context)) return
             if (RtosManager.isActive) return
             // Starting an activity from the background without this grant would be dropped by
             // the system anyway; skip the attempt instead of logging a stack trace per screen-off.
@@ -51,9 +55,15 @@ object WakeToWatchface {
         }
     }
 
+    /** The user's choice for this feature, independent of anything it depends on. */
     fun enabled(ctx: Context): Boolean = PreferenceManager
         .getDefaultSharedPreferences(ctx)
         .getBoolean(PREF, true)
+
+    /** Whether the watch face is drawn over the keyguard — this feature is pointless without it. */
+    fun showOverKeyguard(ctx: Context): Boolean = PreferenceManager
+        .getDefaultSharedPreferences(ctx)
+        .getBoolean(MainActivity.PREF_SHOW_OVER_KEYGUARD, true)
 
     fun hasOverlayPermission(ctx: Context): Boolean = Settings.canDrawOverlays(ctx)
 

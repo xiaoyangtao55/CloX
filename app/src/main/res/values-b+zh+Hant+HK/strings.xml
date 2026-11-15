@@ -1009,7 +1009,8 @@
     <string name="lockscreen_swipe_note">在錶面向上滑即可叫出系統解鎖畫面；CloX 不會自行驗證密碼。</string>
     <!-- Lock screen: wake straight to the watch face -->
     <string name="lockscreen_wake_face_title">亮芒直接顯示錶面</string>
-    <string name="lockscreen_wake_face_summary">熄芒後再亮芒時直接顯示錶面，不經系統鎖定畫面</string>
+    <string name="lockscreen_wake_face_summary">在其他應用程式中熄芒，亮芒同樣顯示錶面；解鎖後落在錶面，而非剛才的應用。</string>
+    <string name="lockscreen_wake_face_needs_overlay">需先開啟上方「在鎖定畫面上顯示錶面」</string>
     <string name="lockscreen_wake_face_perm">需要「顯示在其他應用程式上層」權限，點按授予</string>
     <string name="lockscreen_wake_face_perm_note">沒有該權限時，系統會阻止啟動器在熄芒時切到前景。</string>
 </resources>

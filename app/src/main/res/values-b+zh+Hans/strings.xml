@@ -1040,7 +1040,8 @@
     <string name="lockscreen_swipe_note">在表盘上上滑即可调出系统解锁界面；CloX 自己不校验密码。</string>
     <!-- Lock screen: wake straight to the watch face -->
     <string name="lockscreen_wake_face_title">亮屏直接显示表盘</string>
-    <string name="lockscreen_wake_face_summary">熄屏后再次亮屏时直接显示表盘，不经过系统锁屏</string>
+    <string name="lockscreen_wake_face_summary">在其他应用里熄屏，亮屏同样显示表盘；解锁后落在表盘，而不是刚才的应用。</string>
+    <string name="lockscreen_wake_face_needs_overlay">需先开启上方「在锁屏上显示表盘」</string>
     <string name="lockscreen_wake_face_perm">需要「显示在其他应用上层」权限，点击授予</string>
     <string name="lockscreen_wake_face_perm_note">没有该权限时，系统会阻止启动器在熄屏时切到前台。</string>
 </resources>

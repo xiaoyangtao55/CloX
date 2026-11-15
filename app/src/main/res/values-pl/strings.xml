@@ -906,7 +906,8 @@
     <string name="lockscreen_swipe_note">Przesuń palcem w górę na tarczy, aby otworzyć systemowy ekran odblokowania. CloX nigdy nie pyta o PIN.</string>
     <!-- Lock screen: wake straight to the watch face -->
     <string name="lockscreen_wake_face_title">Tarcza przy włączaniu ekranu</string>
-    <string name="lockscreen_wake_face_summary">Po włączeniu ekranu pokazuje tarczę zamiast ekranu blokady</string>
+    <string name="lockscreen_wake_face_summary">Po włączeniu ekranu pokazuje tarczę, nawet jeśli otwarta była inna aplikacja. Odblokowanie kończy się na tarczy.</string>
+    <string name="lockscreen_wake_face_needs_overlay">Najpierw włącz „Pokaż tarczę na ekranie blokady”</string>
     <string name="lockscreen_wake_face_perm">Wymaga uprawnienia „wyświetlanie nad innymi aplikacjami” — dotknij, aby nadać</string>
     <string name="lockscreen_wake_face_perm_note">Bez tego uprawnienia system blokuje wysunięcie launchera na wierzch przy gaszeniu ekranu.</string>
 </resources>

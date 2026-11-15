@@ -125,21 +125,24 @@ fun AppearanceScreen() {
                 prefs.edit().putBoolean(MainActivity.PREF_SHOW_OVER_KEYGUARD, it).apply()
             },
         )
+        // Depends on the switch above: raising the launcher at screen-off only pays off when the
+        // face is actually drawn over the keyguard, so keep it disabled until that switch is on.
         SettingsSwitch(
             title = res(R.string.lockscreen_wake_face_title),
-            summary = if (wakeFace && !canDrawOverlays) {
-                res(R.string.lockscreen_wake_face_perm)
-            } else {
-                res(R.string.lockscreen_wake_face_summary)
+            summary = when {
+                !overKeyguard -> res(R.string.lockscreen_wake_face_needs_overlay)
+                wakeFace && !canDrawOverlays -> res(R.string.lockscreen_wake_face_perm)
+                else -> res(R.string.lockscreen_wake_face_summary)
             },
             checked = wakeFace,
+            enabled = overKeyguard,
             onCheckedChange = {
                 wakeFace = it
                 prefs.edit().putBoolean(WakeToWatchface.PREF, it).apply()
                 if (it && !canDrawOverlays) WakeToWatchface.requestOverlayPermission(context)
             },
         )
-        if (wakeFace && !canDrawOverlays) {
+        if (overKeyguard && wakeFace && !canDrawOverlays) {
             SettingsNote(res(R.string.lockscreen_wake_face_perm_note))
         }
         SettingsNote(res(R.string.lockscreen_swipe_note))

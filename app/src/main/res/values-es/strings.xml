@@ -991,7 +991,8 @@
     <string name="lockscreen_swipe_note">Desliza hacia arriba sobre la esfera para abrir el desbloqueo del sistema. CloX nunca pide tu PIN.</string>
     <!-- Lock screen: wake straight to the watch face -->
     <string name="lockscreen_wake_face_title">Mostrar la esfera al encender</string>
-    <string name="lockscreen_wake_face_summary">Al encender la pantalla se muestra la esfera en lugar del bloqueo</string>
+    <string name="lockscreen_wake_face_summary">Muestra la esfera al encender aunque hubiera otra app abierta. Al desbloquear se queda en la esfera.</string>
+    <string name="lockscreen_wake_face_needs_overlay">Activa primero «Mostrar la esfera sobre la pantalla de bloqueo»</string>
     <string name="lockscreen_wake_face_perm">Requiere «mostrar sobre otras apps»: toca para conceder</string>
     <string name="lockscreen_wake_face_perm_note">Sin ese permiso el sistema impide que el lanzador pase al frente al apagarse la pantalla.</string>
 </resources>

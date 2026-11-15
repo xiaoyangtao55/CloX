@@ -993,7 +993,8 @@
     <string name="lockscreen_swipe_note">Deslize para cima no mostrador para abrir a tela de desbloqueio do sistema. O CloX nunca pede seu PIN.</string>
     <!-- Lock screen: wake straight to the watch face -->
     <string name="lockscreen_wake_face_title">Mostrador ao ligar a tela</string>
-    <string name="lockscreen_wake_face_summary">Ao ligar a tela novamente, mostra o mostrador em vez da tela de bloqueio</string>
+    <string name="lockscreen_wake_face_summary">Mostra o mostrador ao ligar a tela mesmo com outro app aberto. Desbloquear fica no mostrador.</string>
+    <string name="lockscreen_wake_face_needs_overlay">Ative primeiro «Mostrar o mostrador sobre a tela de bloqueio»</string>
     <string name="lockscreen_wake_face_perm">Requer «exibir sobre outros apps» — toque para conceder</string>
     <string name="lockscreen_wake_face_perm_note">Sem essa permissão o sistema impede o launcher de ir para a frente quando a tela apaga.</string>
 </resources>
