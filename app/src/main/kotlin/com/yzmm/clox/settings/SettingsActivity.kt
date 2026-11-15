@@ -42,13 +42,11 @@ import com.yzmm.clox.settings.compose.HideAppsScreen
 import com.yzmm.clox.settings.compose.LocationScreen
 import com.yzmm.clox.settings.compose.LocalSettingsNavigator
 import com.yzmm.clox.settings.compose.NotificationScreen
-import com.yzmm.clox.settings.compose.QuickSettingsScreen
 import com.yzmm.clox.settings.compose.RootSettingsScreen
 import com.yzmm.clox.settings.compose.RtosScreen
 import com.yzmm.clox.settings.compose.SensorsScreen
 import com.yzmm.clox.settings.compose.SettingsRoutes
 import com.yzmm.clox.settings.compose.TapActionsScreen
-import com.yzmm.clox.settings.compose.TileEditorScreen
 import com.yzmm.clox.settings.compose.WatchfaceScreen
 import com.yzmm.clox.settings.compose.WeatherScreen
 import com.yzmm.clox.ui.theme.CloXWearTheme
@@ -115,7 +113,6 @@ private fun SettingsApp(openTapActions: Boolean, initialFolderId: String?) {
                     RootRoute(navController)
                 }
                 composable(SettingsRoutes.NOTIFICATIONS) { NotificationScreen() }
-                composable(SettingsRoutes.QUICK_SETTINGS) { QuickSettingsScreen() }
                 composable(SettingsRoutes.APP_LIST) { AppListScreen() }
                 composable(SettingsRoutes.ANIMATIONS) { AnimationScreen() }
                 composable(SettingsRoutes.WATCHFACE) { WatchfaceScreen() }
@@ -136,7 +133,6 @@ private fun SettingsApp(openTapActions: Boolean, initialFolderId: String?) {
                 composable(SettingsRoutes.RTOS) { RtosScreen() }
                 composable(SettingsRoutes.DEBUG) { DebugScreen() }
                 composable(SettingsRoutes.ABOUT) { AboutScreen(creatorEasterEgg) }
-                composable(SettingsRoutes.TILE_EDITOR) { TileEditorScreen() }
             }
             CreatorEasterEggOverlay(creatorEasterEgg)
         }

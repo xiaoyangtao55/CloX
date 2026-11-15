@@ -56,12 +56,6 @@
         android:alpha="0"
         android:visibility="gone" />
 
-    <!-- Overlays — GONE by default, above all fragments -->
-    <com.yzmm.clox.overlay.quicksettings.QuickSettingsOverlay
-        android:id="@+id/quickSettingsOverlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
 
     <com.yzmm.clox.overlay.widgets.WidgetsOverlay
         android:id="@+id/widgetsOverlay"
@@ -75,13 +69,6 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-    <!-- FlashlightOverlay: topmost child, white fill, hidden until triggered -->
-    <com.yzmm.clox.overlay.quicksettings.FlashlightOverlay
-        android:id="@+id/flashlightOverlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white"
-        android:visibility="gone" />
 
     <!-- Gesture lock indicator: shown at top-center when gestures are locked -->
     <ImageView

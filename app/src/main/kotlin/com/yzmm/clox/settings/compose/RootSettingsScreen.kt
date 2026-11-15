@@ -23,12 +23,6 @@ fun RootSettingsScreen(
         ) { onOpen(SettingsRoutes.NOTIFICATIONS) }
 
         SettingsButton(
-            title = res(R.string.qs_title),
-            summary = res(R.string.pref_quick_settings_summary),
-            icon = { NavIcon(R.drawable.baseline_tune_24) },
-        ) { onOpen(SettingsRoutes.QUICK_SETTINGS) }
-
-        SettingsButton(
             title = res(R.string.pref_app_list_title),
             summary = res(R.string.pref_app_list_summary),
             icon = { NavIcon(R.drawable.baseline_apps_24) },

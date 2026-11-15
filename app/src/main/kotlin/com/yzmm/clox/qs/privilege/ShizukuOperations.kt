@@ -88,58 +88,37 @@ object ShizukuOperations {
         }
     }
 
-    // ── Public operations — same shell commands as rtosify UserService ─────────
+    // ── Public operations ─────────────────────────────────────────────────────
+    //
+    // Every parameter that reaches a command string goes through [ShellArgs] first: the
+    // UserService runs `Runtime.exec(["sh", "-c", command])`, so an unescaped parameter is
+    // shell syntax executed with the Shizuku shell's uid (CWE-78). Arguments with a known
+    // alphabet are whitelisted and rejected; free-form values are single-quoted.
 
-    fun setWifiEnabled(enabled: Boolean) =
-        exec("svc wifi ${if (enabled) "enable" else "disable"}")
-
-    fun setBluetoothEnabled(enabled: Boolean): Boolean {
-        return exec("svc bluetooth ${if (enabled) "enable" else "disable"}") ||
-               exec("cmd bluetooth_manager ${if (enabled) "enable" else "disable"}")
+    /**
+     * Writes one `settings` value. [namespace] and [key] are validated, [value] is quoted —
+     * see the note above.
+     */
+    fun writeSettings(namespace: String, key: String, value: String): Boolean {
+        val ns = ShellArgs.namespace(namespace) ?: return false
+        val k = ShellArgs.settingsKey(key) ?: return false
+        return exec("settings put $ns $k ${ShellArgs.shQuote(value)}")
     }
-
-    fun setMobileDataEnabled(enabled: Boolean) =
-        exec("svc data ${if (enabled) "enable" else "disable"}")
-
-    fun setAirplaneModeEnabled(enabled: Boolean): Boolean {
-        val flag = if (enabled) "1" else "0"
-        val ok = exec("settings put global airplane_mode_on $flag")
-        if (ok) exec("am broadcast -a android.intent.action.AIRPLANE_MODE --ez state $enabled")
-        return ok
-    }
-
-    fun setLocationEnabled(enabled: Boolean): Boolean =
-        exec("settings put secure location_mode ${if (enabled) "3" else "0"}")
-
-    fun setHotspotEnabled(enabled: Boolean) =
-        exec("svc wifi hotspot ${if (enabled) "enable" else "disable"}")
-
-    fun setBatterySaverEnabled(enabled: Boolean): Boolean =
-        exec("settings put global low_power ${if (enabled) 1 else 0}") ||
-        exec("cmd power set-mode ${if (enabled) 1 else 0}")
-
-    fun writeSettings(namespace: String, key: String, value: String) =
-        exec("settings put $namespace $key $value")
 
     /** Official shell path for notification-listener access (API 30+). */
-    fun allowNotificationListener(component: String): Boolean =
-        exec("cmd notification allow_listener $component")
-
-    /** One-time grant so the app can write secure settings itself from then on. */
-    fun grantWriteSecureSettings(pkg: String): Boolean =
-        exec("pm grant $pkg android.permission.WRITE_SECURE_SETTINGS")
-
-    fun grantPermission(pkg: String, permission: String): Boolean =
-        exec("pm grant $pkg $permission")
-
-    fun forceStop(pkg: String): Boolean = exec("am force-stop $pkg")
+    fun allowNotificationListener(component: String): Boolean {
+        val c = ShellArgs.component(component) ?: return false
+        return exec("cmd notification allow_listener $c")
+    }
 
     /**
      * Clears Android 13+'s "restricted settings" lock for [pkg] by allowing the
      * ACCESS_RESTRICTED_SETTINGS app-op, so its Accessibility / Notification-listener toggles become
      * grantable on a sideloaded build. Falls back to the numeric op code if the name isn't recognised.
      */
-    fun clearRestrictedSettings(pkg: String): Boolean =
-        exec("appops set $pkg ACCESS_RESTRICTED_SETTINGS allow") ||
-        exec("appops set $pkg 119 allow")
+    fun clearRestrictedSettings(pkg: String): Boolean {
+        val p = ShellArgs.pkg(pkg) ?: return false
+        return exec("appops set $p ACCESS_RESTRICTED_SETTINGS allow") ||
+            exec("appops set $p 119 allow")
+    }
 }

@@ -17,10 +17,6 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
-    <!-- Read running tasks via `dumpsys activity recents` for the background-apps page.
-         Granted once via Shizuku/root (development permission) or by the priv-app build. -->
-    <uses-permission android:name="android.permission.DUMP"
-        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- Required to query installed apps on API 30+ -->
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
@@ -52,7 +48,6 @@
     <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <!-- End background processes without Shizuku/root -->
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <!-- Haptic feedback on long press -->
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation" tools:targetApi="s" />
@@ -142,20 +137,6 @@
             </intent-filter>
         </activity-alias>
 
-        <!-- App-list shortcut: opens the control center and disappears -->
-        <activity
-            android:name=".QuickSettingsShortcutActivity"
-            android:exported="true"
-            android:label="@string/control_center"
-            android:icon="@drawable/baseline_tune_24"
-            android:excludeFromRecents="true"
-            android:theme="@android:style/Theme.NoDisplay">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
 
         <!-- Settings — own task so it appears in recents independently -->
         <activity
@@ -170,14 +151,6 @@
         <activity
             android:name=".overlay.notifications.NotificationBlockedAppsActivity"
             android:exported="false"
-            android:theme="@style/Theme.CloX.Settings" />
-
-        <!-- Background/recent apps, opened from the notification panel -->
-        <activity
-            android:name=".background.BackgroundAppsActivity"
-            android:exported="false"
-            android:label="@string/bg_apps_title"
-            android:excludeFromRecents="true"
             android:theme="@style/Theme.CloX.Settings" />
 
         <!-- Watch face selector -->
@@ -327,15 +300,6 @@
                 android:resource="@xml/accessibility_service_config" />
         </service>
 
-        <!-- Global QS overlay host: draw-over-apps QS panel, edge-swipe strip, custom status bar -->
-        <service
-            android:name=".overlay.global.GlobalOverlayService"
-            android:exported="false"
-            android:foregroundServiceType="specialUse">
-            <property
-                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="global_quick_settings_overlay" />
-        </service>
 
         <!-- Pre-API-28 screen-off fallback: GLOBAL_ACTION_LOCK_SCREEN doesn't exist before Android P -->
         <receiver

@@ -4,7 +4,6 @@ package com.yzmm.clox.settings.compose
 object SettingsRoutes {
     const val ROOT = "root"
     const val NOTIFICATIONS = "notifications"
-    const val QUICK_SETTINGS = "quick_settings"
     const val APP_LIST = "app_list"
     const val ANIMATIONS = "animations"
     const val WATCHFACE = "watchface"
@@ -22,7 +21,6 @@ object SettingsRoutes {
     const val RTOS = "rtos"
     const val DEBUG = "debug"
     const val ABOUT = "about"
-    const val TILE_EDITOR = "tile_editor"
 
     fun folderMembers(folderId: String) = "folder_members/$folderId"
 }

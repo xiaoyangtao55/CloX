@@ -1,55 +1,40 @@
 package com.yzmm.clox.qs.privilege
 
-import android.content.Context
 import com.topjohnwu.superuser.Shell
 
+/**
+ * Root shell operations that survive the control-center removal: notification-listener access and
+ * lifting Android 13's "restricted settings" lock.
+ *
+ * Every parameter that ends up in a command string is routed through [ShellArgs] first — libsu
+ * hands the string to `sh`, so an unescaped parameter would be **executed as root** (CWE-78).
+ */
 object RootOperations {
 
-    fun setWifiEnabled(enabled: Boolean): Boolean =
-        Shell.cmd("svc wifi ${if (enabled) "enable" else "disable"}").exec().isSuccess
-
-    fun setBluetoothEnabled(enabled: Boolean): Boolean =
-        Shell.cmd("svc bluetooth ${if (enabled) "enable" else "disable"}").exec().isSuccess
-
-    fun setMobileDataEnabled(enabled: Boolean): Boolean =
-        Shell.cmd("svc data ${if (enabled) "enable" else "disable"}").exec().isSuccess
-
-    fun setAirplaneModeEnabled(ctx: Context, enabled: Boolean): Boolean {
-        val flag = if (enabled) "1" else "0"
-        val ok = Shell.cmd("settings put global airplane_mode_on $flag").exec().isSuccess
-        if (ok) Shell.cmd("am broadcast -a android.intent.action.AIRPLANE_MODE --ez state $enabled").exec()
-        return ok
+    /**
+     * Writes one `settings` value.
+     *
+     * [namespace] must be system / secure / global and [key] must be a well-formed settings key;
+     * both are rejected (returning false) rather than escaped, because a malformed name would not
+     * resolve to anything anyway. [value] is free-form — a notification-listener list, for
+     * example — so it is quoted as a single shell word.
+     */
+    fun writeSettings(namespace: String, key: String, value: String): Boolean {
+        val ns = ShellArgs.namespace(namespace) ?: return false
+        val k = ShellArgs.settingsKey(key) ?: return false
+        return Shell.cmd("settings put $ns $k ${ShellArgs.shQuote(value)}").exec().isSuccess
     }
 
-    fun setLocationEnabled(ctx: Context, enabled: Boolean): Boolean =
-        Shell.cmd("settings put secure location_mode ${if (enabled) "3" else "0"}").exec().isSuccess
-
-    fun setHotspotEnabled(enabled: Boolean): Boolean =
-        Shell.cmd("svc wifi hotspot ${if (enabled) "enable" else "disable"}").exec().isSuccess
-
-    fun setBatterySaverEnabled(enabled: Boolean): Boolean =
-        Shell.cmd("settings put global low_power ${if (enabled) 1 else 0}").exec().isSuccess ||
-        Shell.cmd("cmd power set-mode ${if (enabled) 1 else 0}").exec().isSuccess
-
-    fun writeSettings(namespace: String, key: String, value: String): Boolean =
-        Shell.cmd("settings put $namespace $key $value").exec().isSuccess
-
     /** Official shell path for notification-listener access (API 30+). */
-    fun allowNotificationListener(component: String): Boolean =
-        Shell.cmd("cmd notification allow_listener $component").exec().isSuccess
-
-    /** One-time grant so the app can write secure settings itself from then on. */
-    fun grantWriteSecureSettings(pkg: String): Boolean =
-        Shell.cmd("pm grant $pkg android.permission.WRITE_SECURE_SETTINGS").exec().isSuccess
-
-    fun grantPermission(pkg: String, permission: String): Boolean =
-        Shell.cmd("pm grant $pkg $permission").exec().isSuccess
-
-    fun forceStop(pkg: String): Boolean =
-        Shell.cmd("am force-stop $pkg").exec().isSuccess
+    fun allowNotificationListener(component: String): Boolean {
+        val c = ShellArgs.component(component) ?: return false
+        return Shell.cmd("cmd notification allow_listener $c").exec().isSuccess
+    }
 
     /** Clears Android 13+'s "restricted settings" lock for [pkg] (see ShizukuOperations equivalent). */
-    fun clearRestrictedSettings(pkg: String): Boolean =
-        Shell.cmd("appops set $pkg ACCESS_RESTRICTED_SETTINGS allow").exec().isSuccess ||
-        Shell.cmd("appops set $pkg 119 allow").exec().isSuccess
+    fun clearRestrictedSettings(pkg: String): Boolean {
+        val p = ShellArgs.pkg(pkg) ?: return false
+        return Shell.cmd("appops set $p ACCESS_RESTRICTED_SETTINGS allow").exec().isSuccess ||
+            Shell.cmd("appops set $p 119 allow").exec().isSuccess
+    }
 }

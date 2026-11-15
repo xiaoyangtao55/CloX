@@ -49,7 +49,6 @@ import com.yzmm.clox.overlay.OverlayController
 import com.yzmm.clox.overlay.notifications.CloXNotificationListenerService
 import com.yzmm.clox.overlay.notifications.NotificationOverlay
 import com.yzmm.clox.overlay.notifications.NotificationPrefs
-import com.yzmm.clox.overlay.quicksettings.QuickSettingsOverlay
 import com.yzmm.clox.overlay.quicksettings.VolumeDialogFragment
 import android.appwidget.AppWidgetManager
 import com.yzmm.clox.overlay.widgets.WidgetsOverlay
@@ -111,10 +110,8 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
     private lateinit var blurTargetLaunch: eightbitlab.com.blurview.BlurTarget
     private lateinit var blurTargetFolder: eightbitlab.com.blurview.BlurTarget
     private lateinit var overlayController: OverlayController
-    private lateinit var quickSettings: QuickSettingsOverlay
     private lateinit var widgets: WidgetsOverlay
     private lateinit var notifications: NotificationOverlay
-    private lateinit var flashlightOverlay: com.yzmm.clox.overlay.quicksettings.FlashlightOverlay
 
     lateinit var stateManager: com.yzmm.clox.qs.QsStateManager
 
@@ -564,14 +561,11 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
                 appListOpen && com.yzmm.clox.cocos.RenderPolicy.dynamicFps)
         }
 
-        quickSettings = findViewById(R.id.quickSettingsOverlay)
         widgets = findViewById(R.id.widgetsOverlay)
         notifications = findViewById(R.id.notificationsOverlay)
-        flashlightOverlay = findViewById(R.id.flashlightOverlay)
-        flashlightOverlay.onDismiss = { /* nothing needed */ }
 
         overlayController = OverlayController(
-            window, quickSettings, widgets, notifications,
+            window, widgets, notifications,
             findViewById(R.id.overlayScrim),
             findViewById(R.id.blurLayer)
         ).also { ctrl ->
@@ -580,10 +574,7 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         }
 
         stateManager = com.yzmm.clox.qs.QsStateManager(this)
-        stateManager.attach()   // always active; QS panel attach/detach add/remove their own hold
-        quickSettings.init(stateManager, supportFragmentManager, flashlightOverlay) {
-            overlayController.dismissActive()
-        }
+        stateManager.attach()   // always active; the watchface reads its StateFlows
 
         notifications.init(supportFragmentManager)
         widgets.init(supportFragmentManager)
@@ -594,13 +585,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         gestureHandler.onCollapseToWatchface = { resetToWatchface() }
         // "Expand Quick Settings" / "Expand notifications" actions. QS is key-triggered now, so
         // it opens the panel directly instead of going through the swipe-direction mapping.
-        gestureHandler.onExpandQuickSettings = {
-            when {
-                overlayController.isQsActive() -> overlayController.dismissActive()
-                !appListOpen && !overlayController.hasActiveOverlay() && !RtosManager.isActive ->
-                    overlayController.expandQuickSettings(screenW, screenH)
-            }
-        }
         gestureHandler.onExpandNotifications = {
             if (!appListOpen && !overlayController.hasActiveOverlay() && !RtosManager.isActive)
                 overlayController.expandNotifications(screenW, screenH)
@@ -608,9 +592,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         gestureHandler.onOpenAppList = {
             if (!RtosManager.isActive && !aodManager.aodActive && !appListOpen &&
                 !overlayController.hasActiveOverlay() && !isFolderOpen()) openAppList()
-        }
-        gestureHandler.onToggleFlashlight = {
-            if (!RtosManager.isActive) flashlightOverlay.show()
         }
         gestureHandler.onShowVolumePanel = {
             if (!RtosManager.isActive) VolumeDialogFragment().show(supportFragmentManager, "volume")
@@ -670,9 +651,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         }
 
         registerReceiver(screenOffReceiver, android.content.IntentFilter(Intent.ACTION_SCREEN_OFF))
-
-        // Start the global QS overlay service if enabled (draw-over-apps QS + status bar strip).
-        com.yzmm.clox.overlay.global.GlobalOverlayService.start(this)
 
         handleCloseOverlaysIntent(intent)
     }
@@ -847,10 +825,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         // A panel (notifications / QS / widgets) left open before the screen turned off should
         // not linger on resume — drop it instantly so we land on the watchface.
         if (overlayController.hasActiveOverlay()) overlayController.dismissActiveInstant()
-        if (QuickSettingsShortcut.pending) {
-            QuickSettingsShortcut.pending = false
-            gestureRoot.post { toggleQuickSettings() }
-        }
 
         // Defer non-critical UI operations to after the first frame so the
         // watchface GL surface can render without competing for UI thread time.
@@ -1845,7 +1819,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         if (requestCode == com.yzmm.clox.qs.QsPermissionHelper.REQUEST_CODE) {
             // If any permission was newly granted, re-request remaining and refresh QS state
             if (com.yzmm.clox.qs.QsPermissionHelper.onPermissionsResult(grantResults)) {
-                quickSettings.refreshStateIfOpen()
                 // Re-request to pick up any still-missing permissions in next pass
                 com.yzmm.clox.qs.QsPermissionHelper.requestMissing(this)
             }
@@ -1927,8 +1900,8 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
     // ── Gesture setup ────────────────────────────────────────────────────────
 
     private fun setupGestures() {
-        // Only pass LEFT/RIGHT through when QS is active, not other overlays
-        gestureRoot.qsOverlayActive = { overlayController.isQsActive() }
+        // QS is gone; only the RTOS overlay and notifications still take horizontal swipes.
+        gestureRoot.qsOverlayActive = { false }
         gestureRoot.rtosQsOverlayVisible = { rtosDelegate.isQsVisible }
         // Pass vertical + right swipes through to the notification RecyclerView/ItemTouchHelper.
         // A top-opened panel lets UP collapse only when the list is already at the bottom.
@@ -1995,10 +1968,7 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
                             SwipeDirection.LEFT -> { /* app list follows finger in onSwipeUpdate */ }
                         }
                     overlayController.hasActiveOverlay() && !overlayController.isDragging ->
-                        // QS is toggled by the side key; vertical swipes must not
-                        // pull it closed by accident.
-                        if (!overlayController.isQsActive())
-                            overlayController.startCollapse(direction)
+                        overlayController.startCollapse(direction)
                 }
             }
         }
@@ -2102,8 +2072,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
 
         // Priority 3: dismiss a fully-open overlay on any swipe (fallback)
         if (overlayController.hasActiveOverlay()) {
-            // QS closes via its key (or BACK), not a stray vertical swipe.
-            if (overlayController.isQsActive()) return
             overlayController.dismissActive()
             val x = appListFragment?.view?.translationX ?: screenW
             if (x != (if (appListOpen) 0f else screenW)) {
@@ -2485,20 +2453,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         }
     }
 
-    private fun toggleQuickSettings() {
-        when {
-            overlayController.isQsActive() -> overlayController.dismissActive()
-            RtosManager.isActive || aodManager.aodActive -> {}
-            else -> {
-                // A physical key should always surface QS, even when the app
-                // list or another panel is showing.
-                if (appListOpen) closeAppList()
-                if (overlayController.hasActiveOverlay()) overlayController.dismissActive()
-                overlayController.expandQuickSettings(screenW, screenH)
-            }
-        }
-    }
-
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (RtosManager.isActive) return true   // block all hardware keys in RTOS mode
         if (event != null && buttonMappingHandler.handleKeyDown(keyCode, event)) return true
@@ -2507,21 +2461,6 @@ class MainActivity : AppCompatActivity(), AxmolEngine.AxmolEngineListener {
         if (isCrown) {
             if ((event?.repeatCount ?: 0) == 0 && claimHomeEvent()) {
                 handleCrownPress(fromHomeKey = keyCode == KeyEvent.KEYCODE_HOME)
-            }
-            return true
-        }
-
-        // This watch's key layout reports the crown as KEYCODE_F1 and the
-        // lower/power button as KEYCODE_F2 — STEM_* never arrives. The lower
-        // key opens Quick Settings; the crown keeps its HOME-intent behavior.
-        val isSideButton = keyCode == KeyEvent.KEYCODE_F2 ||
-            keyCode == KeyEvent.KEYCODE_STEM_1 ||
-            keyCode == KeyEvent.KEYCODE_STEM_2 ||
-            keyCode == KeyEvent.KEYCODE_STEM_3
-        if (isSideButton) {
-            if ((event?.repeatCount ?: 0) == 0) {
-                Log.d("CloX/Keys", "onKeyDown side key=$keyCode")
-                toggleQuickSettings()
             }
             return true
         }

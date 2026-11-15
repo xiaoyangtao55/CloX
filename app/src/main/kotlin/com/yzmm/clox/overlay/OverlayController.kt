@@ -8,13 +8,10 @@ import androidx.preference.PreferenceManager
 import com.yzmm.clox.gesture.SwipeDirection
 import com.yzmm.clox.overlay.notifications.NotificationOverlay
 import com.yzmm.clox.overlay.notifications.NotificationPrefs
-import com.yzmm.clox.overlay.quicksettings.QuickSettingsOverlay
 import com.yzmm.clox.overlay.widgets.WidgetsOverlay
-import com.yzmm.clox.qs.QsPrefs
 
 class OverlayController(
     private val window: Window,
-    private val quickSettings: QuickSettingsOverlay,
     private val widgets: WidgetsOverlay,
     private val notifications: NotificationOverlay,
     private val scrimView: View,
@@ -39,18 +36,6 @@ class OverlayController(
     private var screenH = 0f
 
     // ── Open drag (finger pulls panel in) ───────────────────────────────────
-
-    /**
-     * Programmatically open the Quick Settings panel from the top. Used by the side-button
-     * action. Respects [QsPrefs.QS_ENABLED].
-     */
-    fun expandQuickSettings(sw: Float, sh: Float) {
-        if (activeOverlay != null) return
-        val prefs = PreferenceManager.getDefaultSharedPreferences(quickSettings.context)
-        if (!prefs.getBoolean(QsPrefs.QS_ENABLED, true)) return
-        startDragOverlay(quickSettings, SwipeDirection.DOWN, sw, sh)
-        commitDrag()
-    }
 
     /** Programmatically open the notification panel from the top (side action / auto-open). */
     fun expandNotifications(sw: Float, sh: Float) {
@@ -137,7 +122,6 @@ class OverlayController(
             .setInterpolator(DecelerateInterpolator())
             .withEndAction {
                 when {
-                    overlay === quickSettings  -> quickSettings.onPanelOpened()
                     overlay === notifications  -> notifications.onPanelOpened()
                     overlay === widgets        -> widgets.onPanelOpened()
                 }
@@ -318,9 +302,6 @@ class OverlayController(
 
     fun hasActiveOverlay(): Boolean = activeOverlay != null
 
-    /** True only when the QS panel is the current active overlay. */
-    fun isQsActive(): Boolean = activeOverlay === quickSettings
-
     /** True only when the notification panel is the current active overlay. */
     fun isNotificationActive(): Boolean = activeOverlay === notifications
 
@@ -343,13 +324,12 @@ class OverlayController(
 
     private fun closeHooks(overlay: View) {
         when {
-            overlay === quickSettings -> quickSettings.onPanelClosed()
             overlay === widgets       -> widgets.onPanelClosed()
         }
     }
 
     private fun overlayFor(direction: SwipeDirection): View? {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(quickSettings.context)
+        val prefs = PreferenceManager.getDefaultSharedPreferences(notifications.context)
         if ((direction == SwipeDirection.DOWN || direction == SwipeDirection.RIGHT) &&
             !prefs.getBoolean(NotificationPrefs.NOTIF_ENABLED, true)) return null
         return when (direction) {

@@ -270,7 +270,6 @@ private fun grantNotificationAccessPrivileged(context: Context): Boolean {
                 context = context,
             ) || ShizukuOperations.writeSettings(
                 "secure", "enabled_notification_listeners", value)
-            if (ok) ShizukuOperations.grantWriteSecureSettings(context.packageName)
             ok
         }
         PrivilegeLevel.ROOT -> {
@@ -279,7 +278,6 @@ private fun grantNotificationAccessPrivileged(context: Context): Boolean {
                 context = context,
             ) || RootOperations.writeSettings(
                 "secure", "enabled_notification_listeners", value)
-            if (ok) RootOperations.grantWriteSecureSettings(context.packageName)
             ok
         }
         PrivilegeLevel.NONE -> false
