@@ -113,7 +113,10 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            // dex was 11.8 MB of a 56 MB APK — nearly all of it unreachable
+            // AndroidX/Compose code that nothing strips while this is off.
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             // Stable key so builds from different machines/CI runs update in
             // place; fall back to debug only when no release key is configured.
