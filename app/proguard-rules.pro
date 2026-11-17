@@ -19,6 +19,10 @@
 # this class means the PERM_GRANT hook silently stops loading.
 -keep class com.yzmm.clox.xposed.** { *; }
 
+# Shizuku loads this Binder service in another process and constructs it by reflection.
+# The class literal alone does not keep its otherwise uncalled public constructor.
+-keep class com.yzmm.clox.qs.QsUserService { *; }
+
 # Bound to the notification listener service declared in the manifest.
 -keep class com.yzmm.clox.overlay.notifications.CloXNotificationListenerService { *; }
 
