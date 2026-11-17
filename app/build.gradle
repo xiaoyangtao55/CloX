@@ -57,16 +57,12 @@ android {
         versionCode 10
         versionName "6.3"
 
-        // Debug bundles every ABI Axmol ships prebuilt 3rdparty libs for, so the
-        // emulator works. Release ships ARM only — x86/x86_64 exist only for the
-        // emulator and doubled the release APK (119 MB → ~56 MB). Decided from the
-        // requested tasks because AGP UNIONS buildType abiFilters with defaultConfig
-        // (a buildType override cannot narrow the set).
-        if (gradle.startParameter.taskNames.any { it.toLowerCase().contains('release') }) {
-            ndk { abiFilters 'armeabi-v7a', 'arm64-v8a' }
-        } else {
-            ndk { abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64' }
-        }
+        // 64-bit ARM only. Every extra ABI doubles the native payload (~20 MB
+        // each) because Axmol is statically linked into libclox.so, so
+        // armeabi-v7a, x86 and x86_64 were pure weight: the first only served
+        // 32-bit watches, the last two only existed so the emulator could run.
+        // Drops the release APK from ~56 MB to ~26 MB.
+        ndk { abiFilters 'arm64-v8a' }
 
         externalNativeBuild {
             cmake {
