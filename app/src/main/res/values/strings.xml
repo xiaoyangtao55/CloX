@@ -391,49 +391,9 @@
     <string name="pref_sensor_unavailable">Not available on this device</string>
     <string name="pref_gyroscope_simulated">No gyroscope — simulated from the accelerometer</string>
 
-    <!-- ── Quick Settings ─────────────────────────────────────────────────── -->
+    <!-- ── Accessibility service ─────────────────────────────────────────── -->
     <string name="accessibility_service_label">CloX Quick Actions</string>
     <string name="accessibility_service_description">Allows CloX to show the power menu and recent apps from Quick Settings.</string>
-    <string name="qs_title">Quick Settings</string>
-    <string name="control_center">Control center</string>
-    <string name="qs_enabled_title">Enable Quick Settings</string>
-    <string name="qs_enabled_summary">Opens with the side-button action; turns the panel off when disabled</string>
-    <string name="qs_sensitivity_title">Gesture sensitivity</string>
-    <string name="qs_tile_columns_title">Tile columns</string>
-    <string name="qs_tile_rows_title">Rows per page</string>
-    <string name="qs_system_color_title">Use system color</string>
-    <string name="qs_system_color_summary">Follow Material You wallpaper colors (Android 12+); disables custom color pickers below</string>
-    <string name="qs_flashlight_hw_title">Use hardware LED</string>
-    <string name="qs_flashlight_hw_summary">Off: turns screen white at max brightness (works on most watches). On: uses camera flash LED.</string>
-    <string name="qs_color_tiles_title">Color-coded tile states</string>
-    <string name="qs_color_connected_title">Connected color</string>
-    <string name="qs_color_idle_title">Idle / connecting color</string>
-    <string name="qs_color_disconnected_title">Disconnected color</string>
-    <string name="qs_color_off_title">Off color</string>
-    <string name="qs_privilege_title">Privilege mode</string>
-    <string name="qs_privilege_status_title">Privilege status</string>
-    <string name="qs_accessibility_status_title">CloX Quick Actions</string>
-    <string name="qs_accessibility_status_summary">Required for Power menu and Recents</string>
-    <string name="qs_tile_editor_title">Arrange tiles</string>
-    <string name="qs_tile_editor_summary">Choose and reorder tiles shown in the panel</string>
-
-    <string-array name="tile_columns_entries">
-        <item>2 columns (larger tiles)</item>
-        <item>3 columns (compact)</item>
-    </string-array>
-    <string-array name="tile_columns_values" translatable="false">
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-    <string-array name="tile_rows_entries">
-        <item>2 rows</item>
-        <item>3 rows</item>
-    </string-array>
-    <string-array name="tile_rows_values" translatable="false">
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
     <!-- ── Watch Faces ─────────────────────────────────────────────────────── -->
     <string name="pref_watchface_title">Watch Faces</string>
     <string name="pref_watchface_summary">Selector style, sort order, store and remote management</string>
@@ -632,7 +592,6 @@
         <item>Watch face settings</item>
         <item>Toggle gesture lock</item>
         <item>Enter RTOS mode</item>
-        <item>Expand Quick Settings</item>
         <item>Expand notifications</item>
         <item>Open app</item>
         <item>System Quick Settings</item>
@@ -652,7 +611,6 @@
         <item>watchface_config</item>
         <item>lock_gesture</item>
         <item>start_rtos</item>
-        <item>expand_qs</item>
         <item>expand_notif</item>
         <item>open_app</item>
         <item>system_qs</item>
@@ -842,22 +800,7 @@
     <string name="rtos_accessibility_enabled">✓ Enabled</string>
     <string name="rtos_accessibility_disabled">Tap to enable — required for app blocking</string>
 
-    <!-- ── Quick Settings tile labels ──────────────────────────────────── -->
-    <string name="tile_wifi">Wi-Fi</string>
-    <string name="tile_data">Data</string>
-    <string name="tile_bluetooth">Bluetooth</string>
-    <string name="tile_volume">Volume</string>
-    <string name="tile_dnd">DND</string>
-    <string name="tile_rotate">Rotate</string>
-    <string name="tile_flashlight">Flashlight</string>
-    <string name="tile_location">Location</string>
-    <string name="tile_airplane">Airplane</string>
-    <string name="tile_hotspot">Hotspot</string>
-    <string name="tile_battery_saver">Battery Saver</string>
-    <string name="tile_sync">Sync</string>
-    <string name="tile_rtos_mode">RTOS Mode</string>
-    <string name="qs_no_tiles">No tiles selected</string>
-    <string name="qs_media">Media</string>
+    <!-- ── Media controls ──────────────────────────────────────────────── -->
     <string name="cd_media_previous">Previous track</string>
     <string name="cd_media_play">Play</string>
     <string name="cd_media_pause">Pause</string>
@@ -1089,24 +1032,10 @@
     <string name="hide_apps_tab_whitelist">Whitelist</string>
     <string name="hide_apps_secret_code_btn">Hide with secret code</string>
 
-    <!-- ── Tile editor ───────────────────────────────────────────────────── -->
-    <string name="tile_editor_active_tiles">Active Tiles</string>
-    <string name="tile_editor_available_tiles">Available Tiles</string>
-    <string name="tile_editor_add_custom">Add Custom</string>
-
     <!-- ── Notification item actions ────────────────────────────────────── -->
     <string name="notif_action_open">Open</string>
     <string name="notif_action_show_more">Show more</string>
     <string name="notif_action_show_less">Show less</string>
-
-    <!-- ── Quick Settings settings fragment ─────────────────────────────── -->
-    <string name="qs_setting_general_category">General</string>
-    <string name="qs_setting_tiles_category">Tiles</string>
-    <string name="qs_setting_flashlight_category">Flashlight</string>
-    <string name="qs_setting_appearance_category">Appearance</string>
-    <string name="qs_setting_tile_style_title">Tile style</string>
-    <string name="qs_setting_elevated_privileges_category">Elevated Privileges</string>
-    <string name="qs_setting_accessibility_category">Accessibility</string>
 
     <!-- ── Notifications settings fragment ──────────────────────────────── -->
     <string name="notif_setting_enabled_title">Enable notifications</string>
@@ -1290,22 +1219,6 @@
     <string name="weather_temp_placeholder" translatable="false">--</string>
     <string name="weather_high_indicator" translatable="false">↑ %s</string>
     <string name="weather_low_indicator" translatable="false">↓ %s</string>
-
-    <!-- ── QS tile states ───────────────────────────────────────────────- -->
-    <string name="qs_tile_connected">Connected</string>
-    <string name="qs_tile_not_in_use">Not in use</string>
-    <string name="qs_tile_on">On</string>
-    <string name="qs_tile_off">Off</string>
-    <string name="qs_tile_on_detail">on</string>
-    <string name="qs_tile_silent">Silent</string>
-    <string name="qs_tile_vibrate">Vibrate</string>
-    <string name="qs_tile_auto">Auto</string>
-    <string name="qs_tile_locked">Locked</string>
-    <string name="qs_privilege_shizuku">Shizuku active</string>
-    <string name="qs_privilege_root">Root available</string>
-    <string name="qs_privilege_none">No elevated privileges</string>
-    <string name="qs_accessibility_enabled">Enabled — power menu and recents available</string>
-    <string name="qs_accessibility_disabled">Tap to enable in Accessibility Settings</string>
 
     <!-- ── Location hints ─────────────────────────────────────────────── -->
     <string name="location_lat_hint">e.g. 22.3193</string>

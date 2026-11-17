@@ -231,31 +231,9 @@
     <string name="pref_gyroscope_summary">允許錶面讀取旋轉速率</string>
     <string name="pref_sensor_unavailable">此裝置不支援</string>
 
-    <!-- ── Quick Settings ─────────────────────────────────────────────────── -->
+    <!-- ── Accessibility service ─────────────────────────────────────────── -->
     <string name="accessibility_service_label">CloX快速操作</string>
     <string name="accessibility_service_description">允許CloX從快速設定顯示電源選單及最近使用的應用程式。</string>
-    <string name="qs_title">快速設定</string>
-    <string name="qs_enabled_title">啟用快速設定</string>
-    <string name="qs_enabled_summary">透過側鍵動作開啟；關閉後控制中心不可用</string>
-    <string name="qs_sensitivity_title">手勢靈敏度</string>
-    <string name="qs_tile_columns_title">圖塊欄數</string>
-    <string name="qs_tile_rows_title">每頁行數</string>
-    <string name="qs_system_color_title">使用系統顏色</string>
-    <string name="qs_system_color_summary">跟隨Material You桌布顏色（Android 12+）；會停用下方的自訂顏色選擇器</string>
-    <string name="qs_flashlight_hw_title">使用硬件LED</string>
-    <string name="qs_flashlight_hw_summary">關閉：以最大亮度將螢幕轉為白色（大多數手錶適用）。開啟：使用相機閃光燈LED。</string>
-    <string name="qs_color_tiles_title">圖塊狀態顏色標示</string>
-    <string name="qs_color_connected_title">已連接顏色</string>
-    <string name="qs_color_idle_title">閒置／連接中顏色</string>
-    <string name="qs_color_disconnected_title">已斷開連接顏色</string>
-    <string name="qs_color_off_title">關閉顏色</string>
-    <string name="qs_privilege_title">特權模式</string>
-    <string name="qs_privilege_status_title">特權狀態</string>
-    <string name="qs_accessibility_status_title">CloX快速操作</string>
-    <string name="qs_accessibility_status_summary">電源選單及最近使用項目所需</string>
-    <string name="qs_tile_editor_title">排列圖塊</string>
-    <string name="qs_tile_editor_summary">選擇並重新排序面板中顯示的圖塊</string>
-
     <!-- ── Watch Faces ─────────────────────────────────────────────────────── -->
     <string name="pref_watchface_title">錶面</string>
     <string name="pref_watchface_summary">選擇器樣式、排序方式、商店及遠端管理</string>
@@ -512,19 +490,6 @@
     <string name="rtos_accessibility_enabled">✓ 已啟用</string>
     <string name="rtos_accessibility_disabled">點擊以啟用 — 應用程式封鎖所需</string>
 
-    <!-- ── Quick Settings tile labels ──────────────────────────────────── -->
-    <string name="tile_wifi">Wi-Fi</string>
-    <string name="tile_data">數據</string>
-    <string name="tile_bluetooth">Bluetooth</string>
-    <string name="tile_volume">音量</string>
-    <string name="tile_dnd">DND</string>
-    <string name="tile_rotate">旋轉</string>
-    <string name="tile_flashlight">電筒</string>
-    <string name="tile_location">位置</string>
-    <string name="tile_airplane">飛行模式</string>
-    <string name="tile_hotspot">熱點</string>
-    <string name="tile_rtos_mode">RTOS模式</string>
-
     <!-- ── Button mapping ───────────────────────────────────────────────── -->
     <string name="btn_volume_up">音量增大</string>
     <string name="btn_volume_down">音量減小</string>
@@ -606,8 +571,6 @@
     <string name="wf_store_screen_square">方形</string>
     <string name="wf_store_screen_rect">長方形</string>
 
-    <!-- ── Unit suffixes ───────────────────────────────────────────────── -->
-
     <!-- ── Gestures ────────────────────────────────────────────────────── -->
     <string name="gesture_mapped_format">已對應：%s — 點擊以更改</string>
 
@@ -676,23 +639,9 @@
     <string name="hide_apps_tab_whitelist">白名單</string>
     <string name="hide_apps_secret_code_btn">使用密碼隱藏</string>
 
-    <!-- ── Tile editor ───────────────────────────────────────────────────── -->
-    <string name="tile_editor_active_tiles">使用中的圖塊</string>
-    <string name="tile_editor_available_tiles">可用圖塊</string>
-    <string name="tile_editor_add_custom">新增自訂圖塊</string>
-
     <!-- ── Notification item actions ────────────────────────────────────── -->
     <string name="notif_action_open">開啟</string>
     <string name="notif_action_show_more">顯示更多</string>
-
-    <!-- ── Quick Settings settings fragment ─────────────────────────────── -->
-    <string name="qs_setting_general_category">一般</string>
-    <string name="qs_setting_tiles_category">圖塊</string>
-    <string name="qs_setting_flashlight_category">電筒</string>
-    <string name="qs_setting_appearance_category">外觀</string>
-    <string name="qs_setting_tile_style_title">圖塊樣式</string>
-    <string name="qs_setting_elevated_privileges_category">提升的權限</string>
-    <string name="qs_setting_accessibility_category">協助工具</string>
 
     <!-- ── Notifications settings fragment ──────────────────────────────── -->
     <string name="notif_setting_enabled_title">啟用通知</string>
@@ -839,22 +788,6 @@
     <string name="notif_perm_title">需要權限</string>
     <string name="notif_perm_desc">授予通知存取權，讓CloX可以顯示你的通知。</string>
     <string name="notif_perm_grant_btn">授予權限</string>
-
-    <!-- ── QS tile states ───────────────────────────────────────────────- -->
-    <string name="qs_tile_connected">已連接</string>
-    <string name="qs_tile_not_in_use">未使用</string>
-    <string name="qs_tile_on">開啟</string>
-    <string name="qs_tile_off">關閉</string>
-    <string name="qs_tile_on_detail">開啟</string>
-    <string name="qs_tile_silent">靜音</string>
-    <string name="qs_tile_vibrate">震動</string>
-    <string name="qs_tile_auto">自動</string>
-    <string name="qs_tile_locked">已鎖定</string>
-    <string name="qs_privilege_shizuku">Shizuku已啟用</string>
-    <string name="qs_privilege_root">Root可用</string>
-    <string name="qs_privilege_none">沒有提升的權限</string>
-    <string name="qs_accessibility_enabled">已啟用 — 可使用電源選單及最近使用項目</string>
-    <string name="qs_accessibility_disabled">點擊以在協助工具設定中啟用</string>
 
     <!-- ── Location hints ─────────────────────────────────────────────── -->
     <string name="location_lat_hint">例如22.3193</string>

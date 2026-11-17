@@ -231,31 +231,9 @@
     <string name="pref_gyroscope_summary">ウォッチフェイスが回転速度を読み取ることを許可します</string>
     <string name="pref_sensor_unavailable">このデバイスでは利用できません</string>
 
-    <!-- ── Quick Settings ─────────────────────────────────────────────────── -->
+    <!-- ── Accessibility service ─────────────────────────────────────────── -->
     <string name="accessibility_service_label">CloXクイック操作</string>
     <string name="accessibility_service_description">クイック設定から電源メニューと最近使ったアプリを表示できるようにします。</string>
-    <string name="qs_title">クイック設定</string>
-    <string name="qs_enabled_title">クイック設定を有効にする</string>
-    <string name="qs_enabled_summary">ウォッチフェイスから下にスワイプして開きます。オフにするとジェスチャーとすべてのバックグラウンドリスナーが無効になります</string>
-    <string name="qs_sensitivity_title">ジェスチャー感度</string>
-    <string name="qs_tile_columns_title">タイルの列数</string>
-    <string name="qs_tile_rows_title">1ページあたりの行数</string>
-    <string name="qs_system_color_title">システムカラーを使用</string>
-    <string name="qs_system_color_summary">Material Youの壁紙カラーに従います(Android 12以降)。下のカスタムカラー選択は無効になります</string>
-    <string name="qs_flashlight_hw_title">ハードウェアLEDを使用</string>
-    <string name="qs_flashlight_hw_summary">オフ: 画面を最大輝度の白色にします(ほとんどの時計で動作)。オン: カメラのフラッシュLEDを使用します。</string>
-    <string name="qs_color_tiles_title">タイル状態を色分け</string>
-    <string name="qs_color_connected_title">接続時の色</string>
-    <string name="qs_color_idle_title">待機中/接続中の色</string>
-    <string name="qs_color_disconnected_title">切断時の色</string>
-    <string name="qs_color_off_title">オフ時の色</string>
-    <string name="qs_privilege_title">権限モード</string>
-    <string name="qs_privilege_status_title">権限ステータス</string>
-    <string name="qs_accessibility_status_title">CloXクイック操作</string>
-    <string name="qs_accessibility_status_summary">電源メニューと最近使ったアプリに必要です</string>
-    <string name="qs_tile_editor_title">タイルを配置</string>
-    <string name="qs_tile_editor_summary">パネルに表示するタイルの選択と並べ替え</string>
-
     <!-- ── Watch Faces ─────────────────────────────────────────────────────── -->
     <string name="pref_watchface_title">ウォッチフェイス</string>
     <string name="pref_watchface_summary">セレクタースタイル、並べ替え順、ストア、リモート管理</string>
@@ -510,19 +488,6 @@
     <string name="rtos_accessibility_enabled">✓ 有効</string>
     <string name="rtos_accessibility_disabled">タップして有効化 — アプリのブロックに必要です</string>
 
-    <!-- ── Quick Settings tile labels ──────────────────────────────────── -->
-    <string name="tile_wifi">Wi-Fi</string>
-    <string name="tile_data">データ通信</string>
-    <string name="tile_bluetooth">Bluetooth</string>
-    <string name="tile_volume">音量</string>
-    <string name="tile_dnd">DND</string>
-    <string name="tile_rotate">回転</string>
-    <string name="tile_flashlight">懐中電灯</string>
-    <string name="tile_location">位置情報</string>
-    <string name="tile_airplane">機内モード</string>
-    <string name="tile_hotspot">テザリング</string>
-    <string name="tile_rtos_mode">RTOSモード</string>
-
     <!-- ── Button mapping ───────────────────────────────────────────────── -->
     <string name="btn_volume_up">音量アップ</string>
     <string name="btn_volume_down">音量ダウン</string>
@@ -668,23 +633,9 @@
     <string name="hide_apps_tab_whitelist">ホワイトリスト</string>
     <string name="hide_apps_secret_code_btn">シークレットコードで非表示にする</string>
 
-    <!-- ── Tile editor ───────────────────────────────────────────────────── -->
-    <string name="tile_editor_active_tiles">有効なタイル</string>
-    <string name="tile_editor_available_tiles">利用可能なタイル</string>
-    <string name="tile_editor_add_custom">カスタムを追加</string>
-
     <!-- ── Notification item actions ────────────────────────────────────── -->
     <string name="notif_action_open">開く</string>
     <string name="notif_action_show_more">もっと見る</string>
-
-    <!-- ── Quick Settings settings fragment ─────────────────────────────── -->
-    <string name="qs_setting_general_category">一般</string>
-    <string name="qs_setting_tiles_category">タイル</string>
-    <string name="qs_setting_flashlight_category">懐中電灯</string>
-    <string name="qs_setting_appearance_category">外観</string>
-    <string name="qs_setting_tile_style_title">タイルスタイル</string>
-    <string name="qs_setting_elevated_privileges_category">昇格した権限</string>
-    <string name="qs_setting_accessibility_category">アクセシビリティ</string>
 
     <!-- ── Notifications settings fragment ──────────────────────────────── -->
     <string name="notif_setting_enabled_title">通知を有効にする</string>
@@ -831,22 +782,6 @@
     <string name="notif_perm_title">権限が必要です</string>
     <string name="notif_perm_desc">CloXが通知を表示できるよう、通知アクセスを許可してください。</string>
     <string name="notif_perm_grant_btn">権限を付与</string>
-
-    <!-- ── QS tile states ───────────────────────────────────────────────- -->
-    <string name="qs_tile_connected">接続済み</string>
-    <string name="qs_tile_not_in_use">未使用</string>
-    <string name="qs_tile_on">オン</string>
-    <string name="qs_tile_off">オフ</string>
-    <string name="qs_tile_on_detail">オン</string>
-    <string name="qs_tile_silent">サイレント</string>
-    <string name="qs_tile_vibrate">バイブ</string>
-    <string name="qs_tile_auto">自動</string>
-    <string name="qs_tile_locked">ロック中</string>
-    <string name="qs_privilege_shizuku">Shizuku有効</string>
-    <string name="qs_privilege_root">Root利用可能</string>
-    <string name="qs_privilege_none">昇格した権限なし</string>
-    <string name="qs_accessibility_enabled">有効 — 電源メニューと最近使ったアプリが利用可能</string>
-    <string name="qs_accessibility_disabled">タップしてアクセシビリティ設定で有効化</string>
 
     <!-- ── Location hints ─────────────────────────────────────────────── -->
     <string name="location_lat_hint">例: 22.3193</string>

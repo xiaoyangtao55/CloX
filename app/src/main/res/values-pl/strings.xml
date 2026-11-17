@@ -214,28 +214,6 @@
 
     <string name="accessibility_service_label">Szybkie akcje CloX</string>
     <string name="accessibility_service_description">Umożliwia CloX wyświetlanie menu zasilania i ostatnich aplikacji z poziomu Szybkich ustawień.</string>
-    <string name="qs_title">Szybkie ustawienia</string>
-    <string name="qs_enabled_title">Włącz Szybkie ustawienia</string>
-    <string name="qs_enabled_summary">Przesuń w dół od tarczy zegarka, aby otworzyć; wyłączenie wyłącza gest i wszystkie nasłuchiwacze w tle</string>
-    <string name="qs_sensitivity_title">Czułość gestu</string>
-    <string name="qs_tile_columns_title">Kolumny kafelków</string>
-    <string name="qs_tile_rows_title">Rzędy na stronę</string>
-    <string name="qs_system_color_title">Użyj koloru systemowego</string>
-    <string name="qs_system_color_summary">Użyj kolorów tapety Material You (Android 12+); wyłącza poniższe niestandardowe wybory kolorów</string>
-    <string name="qs_flashlight_hw_title">Użyj diody sprzętowej</string>
-    <string name="qs_flashlight_hw_summary">Wyłączone: rozjaśnia ekran na biało z maksymalną jasnością (działa w większości zegarków). Włączone: używa diody LED aparatu.</string>
-    <string name="qs_color_tiles_title">Kolorowe oznaczenia stanów kafelków</string>
-    <string name="qs_color_connected_title">Kolor połączenia</string>
-    <string name="qs_color_idle_title">Kolor bezczynności / łączenia</string>
-    <string name="qs_color_disconnected_title">Kolor rozłączenia</string>
-    <string name="qs_color_off_title">Kolor wyłączenia</string>
-    <string name="qs_privilege_title">Tryb uprawnień</string>
-    <string name="qs_privilege_status_title">Stan uprawnień</string>
-    <string name="qs_accessibility_status_title">Szybkie akcje CloX</string>
-    <string name="qs_accessibility_status_summary">Wymagane dla menu zasilania i ostatnich aplikacji</string>
-    <string name="qs_tile_editor_title">Uporządkuj kafelki</string>
-    <string name="qs_tile_editor_summary">Wybierz i zmień kolejność kafelków widocznych w panelu</string>
-
     <string name="pref_watchface_title">Tarcze zegarka</string>
     <string name="pref_watchface_summary">Styl selektora, kolejność sortowania, sklep i zarządzanie zdalne</string>
     <string name="pref_wf_open_selector_title">Otwórz selektor tarcz</string>
@@ -473,18 +451,6 @@
     <string name="rtos_accessibility_enabled">✓ Włączone</string>
     <string name="rtos_accessibility_disabled">Dotknij, aby włączyć — wymagane do blokowania aplikacji</string>
 
-    <string name="tile_wifi">Wi-Fi</string>
-    <string name="tile_data">Dane</string>
-    <string name="tile_bluetooth">Bluetooth</string>
-    <string name="tile_volume">Głośność</string>
-    <string name="tile_dnd">DND</string>
-    <string name="tile_rotate">Obrót</string>
-    <string name="tile_flashlight">Latarka</string>
-    <string name="tile_location">Lokalizacja</string>
-    <string name="tile_airplane">Tryb samolotowy</string>
-    <string name="tile_hotspot">Hotspot</string>
-    <string name="tile_rtos_mode">Tryb RTOS</string>
-
     <string name="btn_volume_up">Głośność w górę</string>
     <string name="btn_volume_down">Głośność w dół</string>
     <string name="btn_camera">Aparat</string>
@@ -615,20 +581,8 @@
     <string name="hide_apps_tab_whitelist">Biała lista</string>
     <string name="hide_apps_secret_code_btn">Ukryj kodem sekretnym</string>
 
-    <string name="tile_editor_active_tiles">Aktywne kafelki</string>
-    <string name="tile_editor_available_tiles">Dostępne kafelki</string>
-    <string name="tile_editor_add_custom">Dodaj niestandardowy</string>
-
     <string name="notif_action_open">Otwórz</string>
     <string name="notif_action_show_more">Pokaż więcej</string>
-
-    <string name="qs_setting_general_category">Ogólne</string>
-    <string name="qs_setting_tiles_category">Kafelki</string>
-    <string name="qs_setting_flashlight_category">Latarka</string>
-    <string name="qs_setting_appearance_category">Wygląd</string>
-    <string name="qs_setting_tile_style_title">Styl kafelka</string>
-    <string name="qs_setting_elevated_privileges_category">Podwyższone uprawnienia</string>
-    <string name="qs_setting_accessibility_category">Ułatwienia dostępu</string>
 
     <string name="notif_setting_enabled_title">Włącz powiadomienia</string>
     <string name="notif_setting_enabled_summary">Pokaż panel powiadomień po przesunięciu w prawo</string>
@@ -760,21 +714,6 @@
     <string name="notif_perm_title">Wymagane uprawnienie</string>
     <string name="notif_perm_desc">Przyznaj dostęp do powiadomień, aby CloX mógł wyświetlać Twoje powiadomienia.</string>
     <string name="notif_perm_grant_btn">Przyznaj uprawnienie</string>
-
-    <string name="qs_tile_connected">Połączono</string>
-    <string name="qs_tile_not_in_use">Nieużywane</string>
-    <string name="qs_tile_on">Wł.</string>
-    <string name="qs_tile_off">Wył.</string>
-    <string name="qs_tile_on_detail">wł.</string>
-    <string name="qs_tile_silent">Cichy</string>
-    <string name="qs_tile_vibrate">Wibracje</string>
-    <string name="qs_tile_auto">Auto</string>
-    <string name="qs_tile_locked">Zablokowane</string>
-    <string name="qs_privilege_shizuku">Shizuku aktywne</string>
-    <string name="qs_privilege_root">Root dostępny</string>
-    <string name="qs_privilege_none">Brak podwyższonych uprawnień</string>
-    <string name="qs_accessibility_enabled">Włączone — dostępne menu zasilania i ostatnie aplikacje</string>
-    <string name="qs_accessibility_disabled">Dotknij, aby włączyć w Ustawieniach ułatwień dostępu</string>
 
     <string name="location_lat_hint">np. 22.3193</string>
     <string name="location_lon_hint">np. 114.1694</string>

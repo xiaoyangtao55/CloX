@@ -31,9 +31,6 @@ class GestureHandler(private val ctx: Context, private val window: Window) {
     /** Set by MainActivity: open the app list (used by the "Open app list" action). */
     var onOpenAppList: (() -> Unit)? = null
 
-    /** Set by MainActivity: open (expand) the Quick Settings panel, even if swipe-down is disabled. */
-    var onExpandQuickSettings: (() -> Unit)? = null
-
     /** Set by MainActivity: open (expand) the notification panel, even if swipe-right is disabled. */
     var onExpandNotifications: (() -> Unit)? = null
 
@@ -72,11 +69,13 @@ class GestureHandler(private val ctx: Context, private val window: Window) {
             "watchface_config"   -> openWatchfaceConfig()
             "lock_gesture"       -> GestureLockManager.toggleManual()
             "start_rtos"         -> enterRtosMode()
-            "expand_qs"          -> onExpandQuickSettings?.invoke()
+            // "expand_qs" is a legacy value: the in-app control centre is gone, so mappings saved
+            // before the removal fall through to the system panel instead of doing nothing.
+            "expand_qs",
+            "system_qs"          -> globalAction { CloXAccessibilityService.triggerQuickSettings() }
             "expand_notif"       -> onExpandNotifications?.invoke()
             "open_app_list"      -> onOpenAppList?.invoke()
             "open_app"           -> launchApp(appComponent)
-            "system_qs"          -> globalAction { CloXAccessibilityService.triggerQuickSettings() }
             "system_notif"       -> globalAction { CloXAccessibilityService.triggerNotifications() }
             "open_recents"       -> globalAction { CloXAccessibilityService.triggerRecents() }
             "power_menu"         -> globalAction { CloXAccessibilityService.triggerPowerMenu() }

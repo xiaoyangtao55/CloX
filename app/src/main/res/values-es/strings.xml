@@ -231,31 +231,9 @@
     <string name="pref_gyroscope_summary">Permite que las esferas lean la velocidad de rotación</string>
     <string name="pref_sensor_unavailable">No disponible en este dispositivo</string>
 
-    <!-- ── Quick Settings ─────────────────────────────────────────────────── -->
+    <!-- ── Accessibility service ─────────────────────────────────────────── -->
     <string name="accessibility_service_label">Acciones rápidas de CloX</string>
     <string name="accessibility_service_description">Permite que CloX muestre el menú de encendido y las aplicaciones recientes desde los Ajustes rápidos.</string>
-    <string name="qs_title">Ajustes rápidos</string>
-    <string name="qs_enabled_title">Activar Ajustes rápidos</string>
-    <string name="qs_enabled_summary">Desliza hacia abajo desde la esfera para abrir; desactiva el gesto y todos los escuchadores en segundo plano cuando está apagado</string>
-    <string name="qs_sensitivity_title">Sensibilidad del gesto</string>
-    <string name="qs_tile_columns_title">Columnas de mosaicos</string>
-    <string name="qs_tile_rows_title">Filas por página</string>
-    <string name="qs_system_color_title">Usar color del sistema</string>
-    <string name="qs_system_color_summary">Sigue los colores del fondo de pantalla de Material You (Android 12+); desactiva los selectores de color personalizados de abajo</string>
-    <string name="qs_flashlight_hw_title">Usar LED de hardware</string>
-    <string name="qs_flashlight_hw_summary">Desactivado: pone la pantalla en blanco al brillo máximo (funciona en la mayoría de relojes). Activado: usa el LED del flash de la cámara.</string>
-    <string name="qs_color_tiles_title">Estados de mosaico con código de color</string>
-    <string name="qs_color_connected_title">Color conectado</string>
-    <string name="qs_color_idle_title">Color inactivo / conectando</string>
-    <string name="qs_color_disconnected_title">Color desconectado</string>
-    <string name="qs_color_off_title">Color apagado</string>
-    <string name="qs_privilege_title">Modo de privilegios</string>
-    <string name="qs_privilege_status_title">Estado de privilegios</string>
-    <string name="qs_accessibility_status_title">Acciones rápidas de CloX</string>
-    <string name="qs_accessibility_status_summary">Necesario para el menú de encendido y Recientes</string>
-    <string name="qs_tile_editor_title">Organizar mosaicos</string>
-    <string name="qs_tile_editor_summary">Elige y reordena los mosaicos mostrados en el panel</string>
-
     <!-- ── Watch Faces ─────────────────────────────────────────────────────── -->
     <string name="pref_watchface_title">Esferas de reloj</string>
     <string name="pref_watchface_summary">Estilo del selector, orden de clasificación, tienda y gestión remota</string>
@@ -510,19 +488,6 @@
     <string name="rtos_accessibility_enabled">✓ Activado</string>
     <string name="rtos_accessibility_disabled">Toca para activar — necesario para el bloqueo de aplicaciones</string>
 
-    <!-- ── Quick Settings tile labels ──────────────────────────────────── -->
-    <string name="tile_wifi">Wi-Fi</string>
-    <string name="tile_data">Datos</string>
-    <string name="tile_bluetooth">Bluetooth</string>
-    <string name="tile_volume">Volumen</string>
-    <string name="tile_dnd">DND</string>
-    <string name="tile_rotate">Girar</string>
-    <string name="tile_flashlight">Linterna</string>
-    <string name="tile_location">Ubicación</string>
-    <string name="tile_airplane">Avión</string>
-    <string name="tile_hotspot">Punto de acceso</string>
-    <string name="tile_rtos_mode">Modo RTOS</string>
-
     <!-- ── Button mapping ───────────────────────────────────────────────── -->
     <string name="btn_volume_up">Subir volumen</string>
     <string name="btn_volume_down">Bajar volumen</string>
@@ -668,23 +633,9 @@
     <string name="hide_apps_tab_whitelist">Lista blanca</string>
     <string name="hide_apps_secret_code_btn">Ocultar con código secreto</string>
 
-    <!-- ── Tile editor ───────────────────────────────────────────────────── -->
-    <string name="tile_editor_active_tiles">Mosaicos activos</string>
-    <string name="tile_editor_available_tiles">Mosaicos disponibles</string>
-    <string name="tile_editor_add_custom">Añadir personalizado</string>
-
     <!-- ── Notification item actions ────────────────────────────────────── -->
     <string name="notif_action_open">Abrir</string>
     <string name="notif_action_show_more">Mostrar más</string>
-
-    <!-- ── Quick Settings settings fragment ─────────────────────────────── -->
-    <string name="qs_setting_general_category">General</string>
-    <string name="qs_setting_tiles_category">Mosaicos</string>
-    <string name="qs_setting_flashlight_category">Linterna</string>
-    <string name="qs_setting_appearance_category">Apariencia</string>
-    <string name="qs_setting_tile_style_title">Estilo de mosaico</string>
-    <string name="qs_setting_elevated_privileges_category">Privilegios elevados</string>
-    <string name="qs_setting_accessibility_category">Accesibilidad</string>
 
     <!-- ── Notifications settings fragment ──────────────────────────────── -->
     <string name="notif_setting_enabled_title">Activar notificaciones</string>
@@ -831,22 +782,6 @@
     <string name="notif_perm_title">Permiso necesario</string>
     <string name="notif_perm_desc">Concede acceso a notificaciones para que CloX pueda mostrar tus notificaciones.</string>
     <string name="notif_perm_grant_btn">Conceder permiso</string>
-
-    <!-- ── QS tile states ───────────────────────────────────────────────- -->
-    <string name="qs_tile_connected">Conectado</string>
-    <string name="qs_tile_not_in_use">Sin uso</string>
-    <string name="qs_tile_on">Activado</string>
-    <string name="qs_tile_off">Desactivado</string>
-    <string name="qs_tile_on_detail">activado</string>
-    <string name="qs_tile_silent">Silencio</string>
-    <string name="qs_tile_vibrate">Vibración</string>
-    <string name="qs_tile_auto">Automático</string>
-    <string name="qs_tile_locked">Bloqueado</string>
-    <string name="qs_privilege_shizuku">Shizuku activo</string>
-    <string name="qs_privilege_root">Root disponible</string>
-    <string name="qs_privilege_none">Sin privilegios elevados</string>
-    <string name="qs_accessibility_enabled">Activado — menú de encendido y recientes disponibles</string>
-    <string name="qs_accessibility_disabled">Toca para activar en Ajustes de accesibilidad</string>
 
     <!-- ── Location hints ─────────────────────────────────────────────── -->
     <string name="location_lat_hint">p. ej. 22.3193</string>

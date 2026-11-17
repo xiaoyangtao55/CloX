@@ -45,8 +45,12 @@ fun GesturesScreen() {
     var appPick by remember { mutableStateOf<ActionPick?>(null) }
     var apps by remember { mutableStateOf<List<LaunchableApp>?>(null) }
 
-    fun labelFor(value: String) =
-        actionEntries.getOrElse(actionValues.indexOf(value)) { value }
+    fun labelFor(value: String): String {
+        // Mappings saved while the in-app control centre existed still read "expand_qs"; label it
+        // as the system panel it now opens instead of showing the raw value.
+        val key = if (value == "expand_qs") "system_qs" else value
+        return actionEntries.getOrElse(actionValues.indexOf(key)) { value }
+    }
 
     fun summaryFor(baseKey: String, default: String): String {
         @Suppress("UNUSED_VARIABLE")

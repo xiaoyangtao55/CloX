@@ -231,31 +231,9 @@
     <string name="pref_gyroscope_summary">워치 페이스가 회전 속도를 읽도록 허용합니다</string>
     <string name="pref_sensor_unavailable">이 기기에서는 사용할 수 없음</string>
 
-    <!-- ── Quick Settings ─────────────────────────────────────────────────── -->
+    <!-- ── Accessibility service ─────────────────────────────────────────── -->
     <string name="accessibility_service_label">CloX 빠른 작업</string>
     <string name="accessibility_service_description">CloX가 빠른 설정에서 전원 메뉴와 최근 앱을 표시하도록 허용합니다.</string>
-    <string name="qs_title">빠른 설정</string>
-    <string name="qs_enabled_title">빠른 설정 사용</string>
-    <string name="qs_enabled_summary">워치 페이스에서 아래로 스와이프하여 엽니다. 꺼두면 제스처와 모든 백그라운드 리스너가 비활성화됩니다</string>
-    <string name="qs_sensitivity_title">제스처 감도</string>
-    <string name="qs_tile_columns_title">타일 열 수</string>
-    <string name="qs_tile_rows_title">페이지당 행 수</string>
-    <string name="qs_system_color_title">시스템 색상 사용</string>
-    <string name="qs_system_color_summary">Material You 배경화면 색상을 따릅니다(Android 12 이상). 아래의 사용자 지정 색상 선택기가 비활성화됩니다</string>
-    <string name="qs_flashlight_hw_title">하드웨어 LED 사용</string>
-    <string name="qs_flashlight_hw_summary">끄면: 화면을 최대 밝기의 흰색으로 전환합니다(대부분의 시계에서 작동). 켜면: 카메라 플래시 LED를 사용합니다.</string>
-    <string name="qs_color_tiles_title">색상으로 타일 상태 표시</string>
-    <string name="qs_color_connected_title">연결됨 색상</string>
-    <string name="qs_color_idle_title">대기/연결 중 색상</string>
-    <string name="qs_color_disconnected_title">연결 끊김 색상</string>
-    <string name="qs_color_off_title">꺼짐 색상</string>
-    <string name="qs_privilege_title">권한 모드</string>
-    <string name="qs_privilege_status_title">권한 상태</string>
-    <string name="qs_accessibility_status_title">CloX 빠른 작업</string>
-    <string name="qs_accessibility_status_summary">전원 메뉴 및 최근 앱에 필요</string>
-    <string name="qs_tile_editor_title">타일 배치</string>
-    <string name="qs_tile_editor_summary">패널에 표시할 타일을 선택하고 순서를 변경합니다</string>
-
     <!-- ── Watch Faces ─────────────────────────────────────────────────────── -->
     <string name="pref_watchface_title">워치 페이스</string>
     <string name="pref_watchface_summary">선택기 스타일, 정렬 순서, 스토어 및 원격 관리</string>
@@ -510,19 +488,6 @@
     <string name="rtos_accessibility_enabled">✓ 활성화됨</string>
     <string name="rtos_accessibility_disabled">탭하여 활성화 — 앱 차단에 필요합니다</string>
 
-    <!-- ── Quick Settings tile labels ──────────────────────────────────── -->
-    <string name="tile_wifi">Wi-Fi</string>
-    <string name="tile_data">데이터</string>
-    <string name="tile_bluetooth">Bluetooth</string>
-    <string name="tile_volume">볼륨</string>
-    <string name="tile_dnd">DND</string>
-    <string name="tile_rotate">회전</string>
-    <string name="tile_flashlight">손전등</string>
-    <string name="tile_location">위치</string>
-    <string name="tile_airplane">비행기 모드</string>
-    <string name="tile_hotspot">핫스팟</string>
-    <string name="tile_rtos_mode">RTOS 모드</string>
-
     <!-- ── Button mapping ───────────────────────────────────────────────── -->
     <string name="btn_volume_up">볼륨 올리기</string>
     <string name="btn_volume_down">볼륨 내리기</string>
@@ -668,23 +633,9 @@
     <string name="hide_apps_tab_whitelist">허용 목록</string>
     <string name="hide_apps_secret_code_btn">비밀 코드로 숨기기</string>
 
-    <!-- ── Tile editor ───────────────────────────────────────────────────── -->
-    <string name="tile_editor_active_tiles">활성 타일</string>
-    <string name="tile_editor_available_tiles">사용 가능한 타일</string>
-    <string name="tile_editor_add_custom">사용자 지정 추가</string>
-
     <!-- ── Notification item actions ────────────────────────────────────── -->
     <string name="notif_action_open">열기</string>
     <string name="notif_action_show_more">더 보기</string>
-
-    <!-- ── Quick Settings settings fragment ─────────────────────────────── -->
-    <string name="qs_setting_general_category">일반</string>
-    <string name="qs_setting_tiles_category">타일</string>
-    <string name="qs_setting_flashlight_category">손전등</string>
-    <string name="qs_setting_appearance_category">외관</string>
-    <string name="qs_setting_tile_style_title">타일 스타일</string>
-    <string name="qs_setting_elevated_privileges_category">상승된 권한</string>
-    <string name="qs_setting_accessibility_category">접근성</string>
 
     <!-- ── Notifications settings fragment ──────────────────────────────── -->
     <string name="notif_setting_enabled_title">알림 사용</string>
@@ -831,22 +782,6 @@
     <string name="notif_perm_title">권한 필요</string>
     <string name="notif_perm_desc">CloX가 알림을 표시할 수 있도록 알림 접근 권한을 허용하세요.</string>
     <string name="notif_perm_grant_btn">권한 허용</string>
-
-    <!-- ── QS tile states ───────────────────────────────────────────────- -->
-    <string name="qs_tile_connected">연결됨</string>
-    <string name="qs_tile_not_in_use">사용 안 함</string>
-    <string name="qs_tile_on">켜짐</string>
-    <string name="qs_tile_off">꺼짐</string>
-    <string name="qs_tile_on_detail">켜짐</string>
-    <string name="qs_tile_silent">무음</string>
-    <string name="qs_tile_vibrate">진동</string>
-    <string name="qs_tile_auto">자동</string>
-    <string name="qs_tile_locked">잠김</string>
-    <string name="qs_privilege_shizuku">Shizuku 활성</string>
-    <string name="qs_privilege_root">Root 사용 가능</string>
-    <string name="qs_privilege_none">상승된 권한 없음</string>
-    <string name="qs_accessibility_enabled">활성화됨 — 전원 메뉴 및 최근 앱 사용 가능</string>
-    <string name="qs_accessibility_disabled">탭하여 접근성 설정에서 활성화</string>
 
     <!-- ── Location hints ─────────────────────────────────────────────── -->
     <string name="location_lat_hint">예: 22.3193</string>

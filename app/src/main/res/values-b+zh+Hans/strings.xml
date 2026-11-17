@@ -231,32 +231,9 @@
     <string name="pref_gyroscope_summary">允许表盘读取旋转速率</string>
     <string name="pref_sensor_unavailable">此设备不支持</string>
 
-    <!-- ── Quick Settings ─────────────────────────────────────────────────── -->
+    <!-- ── Accessibility service ─────────────────────────────────────────── -->
     <string name="accessibility_service_label">CloX 快捷操作</string>
     <string name="accessibility_service_description">允许 CloX 从快捷设置中显示电源菜单和最近使用的应用。</string>
-    <string name="qs_title">快捷设置</string>
-    <string name="control_center">控制中心</string>
-    <string name="qs_enabled_title">启用快捷设置</string>
-    <string name="qs_enabled_summary">通过侧键动作打开；关闭后控制中心不可用</string>
-    <string name="qs_sensitivity_title">手势灵敏度</string>
-    <string name="qs_tile_columns_title">磁贴列数</string>
-    <string name="qs_tile_rows_title">每页行数</string>
-    <string name="qs_system_color_title">使用系统颜色</string>
-    <string name="qs_system_color_summary">跟随 Material You 壁纸取色（Android 12+）；将禁用下方的自定义颜色选择器</string>
-    <string name="qs_flashlight_hw_title">使用硬件 LED</string>
-    <string name="qs_flashlight_hw_summary">关闭：以最大亮度将屏幕变为纯白（适用于大多数手表）。开启：使用相机闪光灯 LED。</string>
-    <string name="qs_color_tiles_title">磁贴状态颜色标识</string>
-    <string name="qs_color_connected_title">已连接颜色</string>
-    <string name="qs_color_idle_title">空闲/连接中颜色</string>
-    <string name="qs_color_disconnected_title">未连接颜色</string>
-    <string name="qs_color_off_title">关闭颜色</string>
-    <string name="qs_privilege_title">权限模式</string>
-    <string name="qs_privilege_status_title">权限状态</string>
-    <string name="qs_accessibility_status_title">CloX 快捷操作</string>
-    <string name="qs_accessibility_status_summary">电源菜单和最近任务需要此权限</string>
-    <string name="qs_tile_editor_title">排列磁贴</string>
-    <string name="qs_tile_editor_summary">选择并重新排序面板中显示的磁贴</string>
-
     <!-- ── Watch Faces ─────────────────────────────────────────────────────── -->
     <string name="pref_watchface_title">表盘</string>
     <string name="pref_watchface_summary">选择器样式、排序方式、商店和远程管理</string>
@@ -524,22 +501,7 @@
     <string name="rtos_accessibility_enabled">✓ 已启用</string>
     <string name="rtos_accessibility_disabled">点击以启用——应用拦截功能需要此权限</string>
 
-    <!-- ── Quick Settings tile labels ──────────────────────────────────── -->
-    <string name="tile_wifi">Wi-Fi</string>
-    <string name="tile_data">数据</string>
-    <string name="tile_bluetooth">蓝牙</string>
-    <string name="tile_volume">音量</string>
-    <string name="tile_dnd">DND</string>
-    <string name="tile_rotate">旋转</string>
-    <string name="tile_flashlight">手电筒</string>
-    <string name="tile_location">位置</string>
-    <string name="tile_airplane">飞行模式</string>
-    <string name="tile_hotspot">热点</string>
-    <string name="tile_battery_saver">省电模式</string>
-    <string name="tile_sync">同步</string>
-    <string name="tile_rtos_mode">RTOS 模式</string>
-    <string name="qs_no_tiles">未选择控制项</string>
-    <string name="qs_media">媒体</string>
+    <!-- ── Media controls ──────────────────────────────────────────────── -->
     <string name="cd_media_previous">上一首</string>
     <string name="cd_media_play">播放</string>
     <string name="cd_media_pause">暂停</string>
@@ -696,23 +658,9 @@
     <string name="hide_apps_tab_whitelist">白名单</string>
     <string name="hide_apps_secret_code_btn">使用密码隐藏</string>
 
-    <!-- ── Tile editor ───────────────────────────────────────────────────── -->
-    <string name="tile_editor_active_tiles">已启用磁贴</string>
-    <string name="tile_editor_available_tiles">可用磁贴</string>
-    <string name="tile_editor_add_custom">添加自定义</string>
-
     <!-- ── Notification item actions ────────────────────────────────────── -->
     <string name="notif_action_open">打开</string>
     <string name="notif_action_show_more">显示更多</string>
-
-    <!-- ── Quick Settings settings fragment ─────────────────────────────── -->
-    <string name="qs_setting_general_category">通用</string>
-    <string name="qs_setting_tiles_category">磁贴</string>
-    <string name="qs_setting_flashlight_category">手电筒</string>
-    <string name="qs_setting_appearance_category">外观</string>
-    <string name="qs_setting_tile_style_title">磁贴样式</string>
-    <string name="qs_setting_elevated_privileges_category">提升权限</string>
-    <string name="qs_setting_accessibility_category">辅助功能</string>
 
     <!-- ── Notifications settings fragment ──────────────────────────────── -->
     <string name="notif_setting_enabled_title">启用通知</string>
@@ -859,22 +807,6 @@
     <string name="notif_perm_title">需要权限</string>
     <string name="notif_perm_desc">授予通知访问权限，以便 CloX 显示您的通知。</string>
     <string name="notif_perm_grant_btn">授予权限</string>
-
-    <!-- ── QS tile states ───────────────────────────────────────────────- -->
-    <string name="qs_tile_connected">已连接</string>
-    <string name="qs_tile_not_in_use">未使用</string>
-    <string name="qs_tile_on">开</string>
-    <string name="qs_tile_off">关</string>
-    <string name="qs_tile_on_detail">开启</string>
-    <string name="qs_tile_silent">静音</string>
-    <string name="qs_tile_vibrate">振动</string>
-    <string name="qs_tile_auto">自动</string>
-    <string name="qs_tile_locked">已锁定</string>
-    <string name="qs_privilege_shizuku">Shizuku 已激活</string>
-    <string name="qs_privilege_root">Root 可用</string>
-    <string name="qs_privilege_none">无提升权限</string>
-    <string name="qs_accessibility_enabled">已启用——电源菜单和最近任务可用</string>
-    <string name="qs_accessibility_disabled">点击以在辅助功能设置中启用</string>
 
     <!-- ── Location hints ─────────────────────────────────────────────── -->
     <string name="location_lat_hint">例如 22.3193</string>
